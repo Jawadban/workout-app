@@ -28,7 +28,7 @@ You can find the most recent version of this guide [here](https://github.com/fac
 - [Using Global Variables](#using-global-variabls)
 - [Adding Bootstrap](#adding-bootstrap)
 - [Adding Flow](#adding-flow)
-- [Adding Custom Environment Variables](#adding-custom-environment-variables)
+- [Adding Custom Environment Variables](#addig-custom-environment-variables)
 - [Can I Use Decorators?](#can-i-use-decorator)
 - [Integrating with an API Backend](#integrating-with-an-api-backend)
   - [Node](#node)
