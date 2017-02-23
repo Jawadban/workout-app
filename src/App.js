@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
-//import './googleStaticMap.js';
+import GoogleMapStatic from './googleStaticMap.js';
+import LogUserData from './LogUserData.js'
 //import { withGoogleMap } from "react-google-maps";
 //import Map from 'google-maps-react'
 
 
-var user = '';
+//var user = '';
 var coord = [];
 var totalDistanceTravelled = 0;
 
@@ -38,25 +39,32 @@ function getGeoLocation () {
   console.log(coord); 
   }
 
+  if (coord[coord.length -2] && coord[coord.length -1]) {
+    totalDistanceTravelled += (distance(/*37.7632954, -122.4857721,*/ coord[coord.length -2].Latitude, coord[coord.length -2].Longitude, coord[coord.length -1].Latitude, coord[coord.length -1].Longitude));
+      console.log(totalDistanceTravelled);
+  }
+
   //console.log(coord);
-  setInterval(function(){ getGeoLocation();  
-    console.log (coord[coord.length -1]) 
-    if (coord[coord.length -2] && coord[coord.length -1]) {
-      totalDistanceTravelled += (distance(/*37.7632954, -122.4857721,*/ coord[coord.length -2].Latitude, coord[coord.length -2].Longitude, coord[coord.length -1].Latitude, coord[coord.length -1].Longitude));
-      console.log(totalDistanceTravelled);  
-    }
-  }, 30000);
+
+  // setInterval(function(){ getGeoLocation();  
+  //   console.log (coord[coord.length -1]) 
+  //   if (coord[coord.length -2] && coord[coord.length -1]) {
+   //  totalDistanceTravelled += (distance(/*37.7632954, -122.4857721,*/ coord[coord.length -2].Latitude, coord[coord.length -2].Longitude, coord[coord.length -1].Latitude, coord[coord.length -1].Longitude));
+  //     console.log(totalDistanceTravelled);  
+  //   }
+  // }, 10000);
+
 }
 
-function callGetGeoLoc () {
-  setInterval(function(){ getGeoLocation();  
-    console.log (coord[coord.length -1]) 
-    if (coord[coord.length -2] && coord[coord.length -1]) {
-      totalDistanceTravelled += (distance(/*37.7632954, -122.4857721,*/ coord[coord.length -2].Latitude, coord[coord.length -2].Longitude, coord[coord.length -1].Latitude, coord[coord.length -1].Longitude));
-      console.log(totalDistanceTravelled);  
-    }
-  }, 10000);
-}
+// function callGetGeoLoc () {
+//   setInterval(function(){ getGeoLocation();  
+//     console.log (coord[coord.length -1]) 
+//     if (coord[coord.length -2] && coord[coord.length -1]) {
+ //     totalDistanceTravelled += (distance(/*37.7632954, -122.4857721,*/ coord[coord.length -2].Latitude, coord[coord.length -2].Longitude, coord[coord.length -1].Latitude, coord[coord.length -1].Longitude));
+//       console.log(totalDistanceTravelled);  
+//     }
+//   }, 10000);
+// }
 
 function distance(lat1,lon1,lat2,lon2) {
   var R = 6371; // miles (change this constant to get miles)
@@ -74,7 +82,7 @@ function distance(lat1,lon1,lat2,lon2) {
   //return d;
 }
 
-getGeoLocation();
+//getGeoLocation();
 
 
 
@@ -121,16 +129,16 @@ getGeoLocation();
 //       </img>
 
 
-class GoogleMapStatic extends React.Component {
-  constructor (props) {
-    super (props)
-  }
-  render () {
-    return (   
-      <img src='https://maps.googleapis.com/maps/api/staticmap?markers=color:red|37.7837403,-122.40905780000001&zoom=12&size=400x400&key=AIzaSyDij3hmLUQwFjcHinguhvLwujUGMyGaHgw' /> 
-    );
-  }
-}
+// class GoogleMapStatic extends React.Component {
+//   constructor (props) {
+//     super (props)
+//   }
+//   render () {
+//     return (   
+//       <img src='https://maps.googleapis.com/maps/api/staticmap?markers=color:red|37.7837403,-122.40905780000001&zoom=12&size=400x400&key=AIzaSyDij3hmLUQwFjcHinguhvLwujUGMyGaHgw' /> 
+//     );
+//   }
+// }
 
 
 // class GoogleMapStatic extends React.Component {
@@ -144,53 +152,24 @@ class GoogleMapStatic extends React.Component {
 //   }
 // }
 
-class RecordGeoCoors extends React.Component {
-  constructor () {
-    super ()
-  }
-}
+// class DisplayTotalDistance extends React.Component {
+//   constructor () {
+//     super ()
+//   }
+//   render() {
+//     return (
 
+//     );
+//   }
+// }
 
-class LogUserData extends React.Component {
-  constructor (props) {
-    super (props)
-    this.handleUserData = this.handleUserData.bind(this)
-    this.state = {
-      value: this.props.userData,
-    }
-
-  }
-
-  handleUserData (event) {
-    this.setState({
-      value: this.props.firstName
-    })
-  }
-
-  componentWillReceiveProps (nextProps) {
-    this.setState({
-      value: nextProps.userData
-    })
-  }
-
-  render () {
-    return (
-      <div>
-        <ul>
-          <li>{this.state.value}</li>
-        </ul>
-      </div>
-    )
-  }
-
-}
 
 
 class App extends React.Component {
   constructor (props) {
     super (props)
     this.state = {
-      value:'bbc',
+      value:'',
       toggle: false,
     }
     this.handleChange = this.handleChange.bind(this)
@@ -207,17 +186,39 @@ class App extends React.Component {
     this.setState ({
       toggle: !this.state.toggle,
     });
-    event.preventDefault()
-    // if (this.toggle) {
-    //   callGetGeoLoc();
+    // if (this.state.toggle === true) {
+    //   getGeoLocation();
     // }
+    event.preventDefault()
   }
 
   // componentDidMount () {
-  //   if (this.state.toggle) {}
+  //   if (this.state.toggle === true) {
+  //     this.setState({
+  //       value: 'Oh MY GOD ITS A CHRISTMAS Miricle',
+  //     })
+  //   }
   // }
 
+
   render () {    
+    const secCondition = this.state.toggle   
+    const interval = setInterval(loop, 3000);
+    function loop(){
+      const result = document.getElementById("result");
+      if(!secCondition){
+        getGeoLocation()
+      }else{
+        clearInterval(interval);
+        console.log('stopped')
+      }
+    }
+
+
+
+    const condition = this.state.toggle ? 'true' : 'false';
+    //const start = this.state.toggle ? interval : 'false';
+
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -229,7 +230,7 @@ class App extends React.Component {
         </form>
         <p>{this.state.value}</p>
 
-        <LogUserData userData={this.state.value} />
+        <LogUserData userData={condition} start={interval} />
         <GoogleMapStatic />
       </div>
     );

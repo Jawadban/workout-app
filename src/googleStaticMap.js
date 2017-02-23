@@ -13,4 +13,4 @@ class GoogleMapStatic extends React.Component {
   }
 }
 
-module.exports = GoogleMapStatic;
+export default GoogleMapStatic;
