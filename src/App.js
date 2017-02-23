@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import './googleStaticMap.js';
+
 
 var user = '';
 var coord = [];
@@ -101,6 +103,42 @@ getGeoLocation();
 //   }
 // }
 
+class GoogleMap extends React.Component {
+  constructor() {
+    super ()
+
+  }
+
+  function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 3,
+      center: {lat: 0, lng: -180},
+      mapTypeId: 'terrain'
+    });
+
+    var flightPlanCoordinates = [
+      {lat: 37.772, lng: -122.214},
+      {lat: 21.291, lng: -157.821},
+      {lat: -18.142, lng: 178.431},
+      {lat: -27.467, lng: 153.027}
+    ];
+    var flightPath = new google.maps.Polyline({
+      path: flightPlanCoordinates,
+      geodesic: true,
+      strokeColor: '#FF0000',
+      strokeOpacity: 1.0,
+      strokeWeight: 2
+    });
+
+    flightPath.setMap(map);
+  }
+
+  render () {
+    return (
+      <src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDij3hmLUQwFjcHinguhvLwujUGMyGaHgw'&callback=initMap">
+    );
+  }
+}
 
 
 
@@ -109,39 +147,107 @@ class GoogleMapStatic extends React.Component {
   constructor (props) {
     super (props)
   }
-
   render () {
     return (
-      <img src ='https://maps.googleapis.com/maps/api/staticmap?markers=color:red|37.7837403,-122.40905780000001&zoom=12&size=400x400&key=AIzaSyDij3hmLUQwFjcHinguhvLwujUGMyGaHgw' /> 
+      <img src='https://maps.googleapis.com/maps/api/staticmap?markers=color:red|37.7837403,-122.40905780000001&zoom=12&size=400x400&key=AIzaSyDij3hmLUQwFjcHinguhvLwujUGMyGaHgw' /> 
     );
   }
 }
 
+class LogUserData extends React.Component {
+  constructor (props) {
+    super (props)
+    this.handleUserData = this.handleUserData.bind(this)
+    this.state = {
+      value: this.props.userData,
+    }
 
+  }
+
+  handleUserData (event) {
+    this.setState({
+      value: this.props.firstName
+    })
+  }
+
+  componentWillReceiveProps (nextProps) {
+    this.setState({
+      value: nextProps.userData
+    })
+  }
+
+  render () {
+    return (
+      <div>
+        <ul>
+          <li>{this.state.value}</li>
+        </ul>
+      </div>
+    )
+  }
+
+}
 
 
 class App extends React.Component {
   constructor (props) {
     super (props)
+    this.state = {
+      value:'bbc',
+      toggle: false,
+    }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  render () {
-    
-    var {firstName, onSubmit, onChange} = this.props;
-    
+  handleChange (event) {
+    this.setState({
+      value: event.target.value,
+    })
+  }
+
+  handleSubmit (event) {
+    this.setState ({
+      toggle: true,
+    });
+  }
+
+  render () {    
     return (
       <div>
-        <form>
-          <p>Please Enter Your Name and Press start to track your locations</p>
-          <input value={firstName} onChange={onChange} name='firstName' label='First Name' placeholder='Your First Name Please' />
-          <button onClick={onSubmit}>Start</button>
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            <p>Please Enter Your Name and Press start to track your locations</p>
+            <input type="text" value={this.state.value} onChange={this.handleChange} />
+          </label>
+          <input type="submit" value="Submit" />
         </form>
+        <p>{this.state.value}</p>
+
+        <LogUserData userData={this.state.value} />
         <GoogleMapStatic />
+        <GettingStartedGoogleMap
+          containerElement={
+            <div style={{ height: `100%` }} />
+          }
+          mapElement={
+            <div style={{ height: `100%` }} />
+          }
+          onMapLoad={_.noop}
+          onMapClick={_.noop}
+          markers={markers}
+          onMarkerRightClick={_.noop}
+        />
       </div>
     );
   }
 
 }
+        // <form onSubmit={this.handleSubmit}>
+        //   <p>Please Enter Your Name and Press start to track your locations</p>
+        //   <input value={firstName} name='firstName' onClick={onSubmit} label='First Name' placeholder='Your First Name Please' />
+        //   <input type="submit" value="Submit" />
+        // </form>
 
 
         // <img src ='https://maps.googleapis.com/maps/api/staticmap?markers=color:red|37.7837403,-122.40905780000001&zoom=12&size=400x400&key=AIzaSyDij3hmLUQwFjcHinguhvLwujUGMyGaHgw'>
