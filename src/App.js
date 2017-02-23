@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import './App.css';
 import GoogleMapStatic from './googleStaticMap.js';
 import LogUserData from './LogUserData.js'
+import { Router, Route, Link } from 'react-router'
+
 //import { withGoogleMap } from "react-google-maps";
 //import Map from 'google-maps-react'
 
@@ -141,16 +143,6 @@ function distance(lat1,lon1,lat2,lon2) {
 // }
 
 
-// class GoogleMapStatic extends React.Component {
-//   constructor (props) {
-//     super (props)
-//   }
-//   render () {
-//     return (
-//       <img src='https://maps.googleapis.com/maps/api/staticmap?markers=color:red|37.7837403,-122.40905780000001&zoom=12&size=400x400&key=AIzaSyDij3hmLUQwFjcHinguhvLwujUGMyGaHgw' /> 
-//     );
-//   }
-// }
 
 // class DisplayTotalDistance extends React.Component {
 //   constructor () {
@@ -171,6 +163,7 @@ class App extends React.Component {
     this.state = {
       value:'',
       toggle: false,
+      coords: coord
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -186,10 +179,38 @@ class App extends React.Component {
     this.setState ({
       toggle: !this.state.toggle,
     });
+    event.preventDefault()
     // if (this.state.toggle === true) {
     //   getGeoLocation();
     // }
-    event.preventDefault()
+    //interval
+    const secCondition = this.state.toggle  
+    function ifTrueRunGeoLoc () {
+      if (secCondition) {
+        setTimeout ( function () {
+          getGeoLocation();
+          console.log ('started: ' + secCondition);
+          if (secCondition) {
+            ifTrueRunGeoLoc()
+          }
+        }
+        , 3000)
+      } 
+    }
+    ifTrueRunGeoLoc();
+    console.log('bananas')
+    // const interval = setInterval(loop, 3000);
+    // function loop(){
+    //   const result = document.getElementById("result");
+    //   if(secCondition){
+    //     getGeoLocation()
+    //     console.log('started')
+    //   }else{
+    //     clearInterval(interval);
+    //     console.log('stopped')
+    //   }
+    // }
+
   }
 
   // componentDidMount () {
@@ -202,20 +223,6 @@ class App extends React.Component {
 
 
   render () {    
-    const secCondition = this.state.toggle   
-    const interval = setInterval(loop, 3000);
-    function loop(){
-      const result = document.getElementById("result");
-      if(!secCondition){
-        getGeoLocation()
-      }else{
-        clearInterval(interval);
-        console.log('stopped')
-      }
-    }
-
-
-
     const condition = this.state.toggle ? 'true' : 'false';
     //const start = this.state.toggle ? interval : 'false';
 
@@ -230,31 +237,12 @@ class App extends React.Component {
         </form>
         <p>{this.state.value}</p>
 
-        <LogUserData userData={condition} start={interval} />
-        <GoogleMapStatic />
+        <LogUserData userData={condition} start={condition} />
+        <GoogleMapStatic coords={this.state.coords[this.state.coords.length -1]} />
       </div>
     );
   }
 
 }
-
-
-
-
-// class xApp extends Component {
-//   render() {
-//     return (
-//       <div className="App">
-//         <div className="App-header">
-//           <img src={logo} className="App-logo" alt="logo" />
-//           <h2>Welcome to React</h2>
-//         </div>
-//         <p className="App-intro">
-//           To get started, edit <code>src/App.js</code> and save to reload.
-//         </p>
-//       </div>
-//     );
-//   }
-// }
 
 export default App;
