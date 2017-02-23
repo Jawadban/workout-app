@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import './googleStaticMap.js';
+//import { withGoogleMap } from "react-google-maps";
+//import Map from 'google-maps-react'
 
 
 var user = '';
@@ -71,13 +73,13 @@ getGeoLocation();
 //     center: {lat: 0, lng: -180},
 //     mapTypeId: 'terrain'
 //   });
-//   var flightPlanCoordinates = coord;
-//   // var flightPlanCoordinates = [
-//   //   {lat: 37.772, lng: -122.214},
-//   //   {lat: 21.291, lng: -157.821},
-//   //   {lat: -18.142, lng: 178.431},
-//   //   {lat: -27.467, lng: 153.027}
-//   // ];
+//   //var flightPlanCoordinates = coord;
+//   var flightPlanCoordinates = [
+//     {lat: 37.772, lng: -122.214},
+//     {lat: 21.291, lng: -157.821},
+//     {lat: -18.142, lng: 178.431},
+//     {lat: -27.467, lng: 153.027}
+//   ];
 //   var flightPath = new google.maps.Polyline({
 //     path: flightPlanCoordinates,
 //     geodesic: true,
@@ -97,50 +99,14 @@ getGeoLocation();
 
 //   render () {
 //     return (
-//       <img src ='https://maps.googleapis.com/maps/api/js?key=AIzaSyDij3hmLUQwFjcHinguhvLwujUGMyGaHgw&callback=initMap'>
-//       </img>
+//         <script async defer
+//           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDij3hmLUQwFjcHinguhvLwujUGMyGaHgw&callback=initMap">
+//         </script>
 //     );
 //   }
 // }
-
-class GoogleMap extends React.Component {
-  constructor() {
-    super ()
-
-  }
-
-  function initMap() {
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 3,
-      center: {lat: 0, lng: -180},
-      mapTypeId: 'terrain'
-    });
-
-    var flightPlanCoordinates = [
-      {lat: 37.772, lng: -122.214},
-      {lat: 21.291, lng: -157.821},
-      {lat: -18.142, lng: 178.431},
-      {lat: -27.467, lng: 153.027}
-    ];
-    var flightPath = new google.maps.Polyline({
-      path: flightPlanCoordinates,
-      geodesic: true,
-      strokeColor: '#FF0000',
-      strokeOpacity: 1.0,
-      strokeWeight: 2
-    });
-
-    flightPath.setMap(map);
-  }
-
-  render () {
-    return (
-      <src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDij3hmLUQwFjcHinguhvLwujUGMyGaHgw'&callback=initMap">
-    );
-  }
-}
-
-
+//       <img src ='https://maps.googleapis.com/maps/api/js?key=AIzaSyDij3hmLUQwFjcHinguhvLwujUGMyGaHgw&callback=initMap'>
+//       </img>
 
 
 class GoogleMapStatic extends React.Component {
@@ -149,10 +115,31 @@ class GoogleMapStatic extends React.Component {
   }
   render () {
     return (
+      
       <img src='https://maps.googleapis.com/maps/api/staticmap?markers=color:red|37.7837403,-122.40905780000001&zoom=12&size=400x400&key=AIzaSyDij3hmLUQwFjcHinguhvLwujUGMyGaHgw' /> 
     );
   }
 }
+
+
+// class GoogleMapStatic extends React.Component {
+//   constructor (props) {
+//     super (props)
+//   }
+//   render () {
+//     return (
+//       <img src='https://maps.googleapis.com/maps/api/staticmap?markers=color:red|37.7837403,-122.40905780000001&zoom=12&size=400x400&key=AIzaSyDij3hmLUQwFjcHinguhvLwujUGMyGaHgw' /> 
+//     );
+//   }
+// }
+
+class RecordGeoCoors extends React.Component {
+  constructor () {
+    super ()
+  }
+
+}
+
 
 class LogUserData extends React.Component {
   constructor (props) {
@@ -208,8 +195,9 @@ class App extends React.Component {
 
   handleSubmit (event) {
     this.setState ({
-      toggle: true,
+      toggle: !this.state.toggle,
     });
+    event.preventDefault()
   }
 
   render () {    
@@ -226,18 +214,6 @@ class App extends React.Component {
 
         <LogUserData userData={this.state.value} />
         <GoogleMapStatic />
-        <GettingStartedGoogleMap
-          containerElement={
-            <div style={{ height: `100%` }} />
-          }
-          mapElement={
-            <div style={{ height: `100%` }} />
-          }
-          onMapLoad={_.noop}
-          onMapClick={_.noop}
-          markers={markers}
-          onMarkerRightClick={_.noop}
-        />
       </div>
     );
   }
