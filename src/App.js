@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import './googleStaticMap.js';
+//import './googleStaticMap.js';
 //import { withGoogleMap } from "react-google-maps";
 //import Map from 'google-maps-react'
 
@@ -13,7 +13,7 @@ var totalDistanceTravelled = 0;
 function getGeoLocation () {
   var options = {
     enableHighAccuracy: true,
-    timeout: 5000,
+    timeout: 10000,
     maximumAge: 0
   };
 
@@ -45,7 +45,7 @@ function getGeoLocation () {
       totalDistanceTravelled += (distance(/*37.7632954, -122.4857721,*/ coord[coord.length -2].Latitude, coord[coord.length -2].Longitude, coord[coord.length -1].Latitude, coord[coord.length -1].Longitude));
       console.log(totalDistanceTravelled);  
     }
-  }, 3000);
+  }, 30000);
 }
 
 function callGetGeoLoc () {
@@ -55,7 +55,7 @@ function callGetGeoLoc () {
       totalDistanceTravelled += (distance(/*37.7632954, -122.4857721,*/ coord[coord.length -2].Latitude, coord[coord.length -2].Longitude, coord[coord.length -1].Latitude, coord[coord.length -1].Longitude));
       console.log(totalDistanceTravelled);  
     }
-  }, 3000);
+  }, 10000);
 }
 
 function distance(lat1,lon1,lat2,lon2) {
