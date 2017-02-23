@@ -38,6 +38,7 @@ function getGeoLocation () {
   console.log(coord); 
   }
 
+  //console.log(coord);
   setInterval(function(){ getGeoLocation();  
     console.log (coord[coord.length -1]) 
     if (coord[coord.length -2] && coord[coord.length -1]) {
@@ -45,9 +46,17 @@ function getGeoLocation () {
       console.log(totalDistanceTravelled);  
     }
   }, 3000);
-  //console.log(coord);
 }
 
+function callGetGeoLoc () {
+  setInterval(function(){ getGeoLocation();  
+    console.log (coord[coord.length -1]) 
+    if (coord[coord.length -2] && coord[coord.length -1]) {
+      totalDistanceTravelled += (distance(/*37.7632954, -122.4857721,*/ coord[coord.length -2].Latitude, coord[coord.length -2].Longitude, coord[coord.length -1].Latitude, coord[coord.length -1].Longitude));
+      console.log(totalDistanceTravelled);  
+    }
+  }, 3000);
+}
 
 function distance(lat1,lon1,lat2,lon2) {
   var R = 6371; // miles (change this constant to get miles)
@@ -66,6 +75,9 @@ function distance(lat1,lon1,lat2,lon2) {
 }
 
 getGeoLocation();
+
+
+
 
 // function initMap () {
 //   var map = new google.maps.Map(document.getElementById('map'), {
@@ -114,8 +126,7 @@ class GoogleMapStatic extends React.Component {
     super (props)
   }
   render () {
-    return (
-      
+    return (   
       <img src='https://maps.googleapis.com/maps/api/staticmap?markers=color:red|37.7837403,-122.40905780000001&zoom=12&size=400x400&key=AIzaSyDij3hmLUQwFjcHinguhvLwujUGMyGaHgw' /> 
     );
   }
@@ -137,7 +148,6 @@ class RecordGeoCoors extends React.Component {
   constructor () {
     super ()
   }
-
 }
 
 
@@ -198,7 +208,14 @@ class App extends React.Component {
       toggle: !this.state.toggle,
     });
     event.preventDefault()
+    // if (this.toggle) {
+    //   callGetGeoLoc();
+    // }
   }
+
+  // componentDidMount () {
+  //   if (this.state.toggle) {}
+  // }
 
   render () {    
     return (
