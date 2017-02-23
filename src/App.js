@@ -238,16 +238,6 @@ class App extends React.Component {
 
 }
 
-        // <form onSubmit={this.handleSubmit}>
-        //   <p>Please Enter Your Name and Press start to track your locations</p>
-        //   <input value={firstName} name='firstName' onClick={onSubmit} label='First Name' placeholder='Your First Name Please' />
-        //   <input type="submit" value="Submit" />
-        // </form>
-
-
-        // <img src ='https://maps.googleapis.com/maps/api/staticmap?markers=color:red|37.7837403,-122.40905780000001&zoom=12&size=400x400&key=AIzaSyDij3hmLUQwFjcHinguhvLwujUGMyGaHgw'>
-        // </img>
-
 
 
 
