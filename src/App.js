@@ -236,6 +236,7 @@ class App extends React.Component {
   }
 
 }
+
         // <form onSubmit={this.handleSubmit}>
         //   <p>Please Enter Your Name and Press start to track your locations</p>
         //   <input value={firstName} name='firstName' onClick={onSubmit} label='First Name' placeholder='Your First Name Please' />
