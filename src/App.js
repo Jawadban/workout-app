@@ -42,7 +42,7 @@ function getGeoLocation () {
   }
 
   if (coord[coord.length -2] && coord[coord.length -1]) {
-    totalDistanceTravelled += (distance(/*37.7632954, -122.4857721,*/ coord[coord.length -2].Latitude, coord[coord.length -2].Longitude, coord[coord.length -1].Latitude, coord[coord.length -1].Longitude));
+    totalDistanceTravelled += (distance(37.7632954, -122.4857721, /*coord[coord.length -2].Latitude, coord[coord.length -2].Longitude,*/ coord[coord.length -1].Latitude, coord[coord.length -1].Longitude));
       console.log(totalDistanceTravelled);
   }
 
@@ -162,8 +162,9 @@ class App extends React.Component {
     super (props)
     this.state = {
       value:'',
-      toggle: false,
-      coords: coord
+      shoulGetGeoData: false,
+      coords: coord, 
+      intervalId: null,
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -176,32 +177,51 @@ class App extends React.Component {
   }
 
   handleSubmit (event) {
-    this.setState ({
-      toggle: !this.state.toggle,
-    });
+    // console.log('before setState', this.state.shoulGetGeoData)
+
+    // this.setState ({
+    //   shoulGetGeoData: !this.state.shoulGetGeoData,
+    // });
+    // console.log('after setState', this.state.shoulGetGeoData)
     event.preventDefault()
-    // if (this.state.toggle === true) {
+
+    if(this.state.intervalId) {
+      clearInterval(this.state.intervalId);
+      this.setState({
+        intervalId: null
+      });
+    } else {
+      this.setState({
+        intervalId: setInterval(getGeoLocation, 3000)
+      });
+    }
+
+
+    // if (this.state.shoulGetGeoData === true) {
     //   getGeoLocation();
     // }
     //interval
-    const secCondition = this.state.toggle  
-    function ifTrueRunGeoLoc () {
-      if (secCondition) {
-        setTimeout ( function () {
-          getGeoLocation();
-          console.log ('started: ' + secCondition);
-          if (secCondition) {
-            ifTrueRunGeoLoc()
-          }
-        }
-        , 3000)
-      } 
-    }
-    ifTrueRunGeoLoc();
-    console.log('bananas')
-    // const interval = setInterval(loop, 3000);
+
+
+    // function ifTrueRunGeoLoc () {
+    //   if (this.state.shoulGetGeoData) {
+    //     setTimeout ( function () {
+    //       getGeoLocation();
+    //       console.log ('started: ' + this.state.shoulGetGeoData);
+    //       if (this.state.shoulGetGeoData) {
+    //         ifTrueRunGeoLoc.call(this)
+    //       }
+    //     }.bind(this)
+    //     , 3000)
+    //   } 
+    // }
+    // ifTrueRunGeoLoc();
+    // console.log('bananas')
+
+
+
+    //  = setInterval(loop, 3000);
     // function loop(){
-    //   const result = document.getElementById("result");
     //   if(secCondition){
     //     getGeoLocation()
     //     console.log('started')
@@ -214,7 +234,7 @@ class App extends React.Component {
   }
 
   // componentDidMount () {
-  //   if (this.state.toggle === true) {
+  //   if (this.state.shoulGetGeoData === true) {
   //     this.setState({
   //       value: 'Oh MY GOD ITS A CHRISTMAS Miricle',
   //     })
@@ -223,21 +243,21 @@ class App extends React.Component {
 
 
   render () {    
-    const condition = this.state.toggle ? 'true' : 'false';
-    //const start = this.state.toggle ? interval : 'false';
+    const condition = this.state.shoulGetGeoData ? 'true' : 'false';
+    //const start = this.state.shoulGetGeoData ? interval : 'false';
 
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form >
           <label>
             <p>Please Enter Your Name and Press start to track your locations</p>
             <input type="text" value={this.state.value} onChange={this.handleChange} />
           </label>
           <input type="submit" value="Submit" />
         </form>
+        <button onClick={this.handleSubmit}>Start Running</button>
         <p>{this.state.value}</p>
-
-        <LogUserData userData={condition} start={condition} />
+        <LogUserData userData={totalDistanceTravelled} name={condition} />
         <GoogleMapStatic coords={this.state.coords[this.state.coords.length -1]} />
       </div>
     );

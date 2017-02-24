@@ -6,17 +6,17 @@ class GoogleMapStatic extends React.Component {
 	constructor (props) {
 		super (props)
 		this.state = {
-			coordLat: '36.7837403',
-			coordLon: '-121.40905780000001'
+			coordLat: '37.7837403',
+			coordLon: '-122.40905780000001'
 		}
 	}
 
 	componentWillReceiveProps (nextProps) {
     if (nextProps) {	
-    	console.log('Iv got new Props')
+    	console.log('Iv got new Props: '+ nextProps.coords.Latitude)
 	    this.setState({
 	      coordLat: nextProps.coords.Latitude.toString(),
-	      coordLat: nextProps.coords.Longitude.toString()
+	      coordLon: nextProps.coords.Longitude.toString(),
 	    })
     }
   }
@@ -24,7 +24,10 @@ class GoogleMapStatic extends React.Component {
   render () {
 	const mapVar = ['https://maps.googleapis.com/maps/api/staticmap?markers=color:red|',this.state.coordLat, ',' , this.state.coordLon ,'&zoom=12&size=400x400&key=AIzaSyDij3hmLUQwFjcHinguhvLwujUGMyGaHgw'].join('')
     return (
-      <img src={mapVar}/> 
+    	<div>
+    		<p>{this.state.coordLat}</p>
+      	<img src={mapVar}/> 
+      </div>
     );
   }
 }
