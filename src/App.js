@@ -4,7 +4,7 @@ import './App.css';
 import GoogleMapStatic from './googleStaticMap.js';
 import LogUserData from './LogUserData.js'
 import { Router, Route, Link } from 'react-router'
-
+import GoogleWholeRoute from './googleMapWholeRoute.js'
 //import { withGoogleMap } from "react-google-maps";
 //import Map from 'google-maps-react'
 
@@ -16,7 +16,7 @@ var totalDistanceTravelled = 0;
 function getGeoLocation () {
   var options = {
     enableHighAccuracy: true,
-    timeout: 10000,
+    timeout: 5000,
     maximumAge: 0
   };
 
@@ -163,7 +163,8 @@ class App extends React.Component {
     this.state = {
       value:'',
       shoulGetGeoData: false,
-      coords: coord, 
+      coords: coord,
+      coordPosNow: '', 
       intervalId: null,
     }
     this.handleChange = this.handleChange.bind(this)
@@ -175,6 +176,7 @@ class App extends React.Component {
       value: event.target.value,
     })
   }
+
 
   handleSubmit (event) {
     // console.log('before setState', this.state.shoulGetGeoData)
@@ -192,7 +194,9 @@ class App extends React.Component {
       });
     } else {
       this.setState({
-        intervalId: setInterval(getGeoLocation, 3000)
+        intervalId: setInterval(
+          getGeoLocation
+          , 3000)
       });
     }
 
@@ -218,32 +222,29 @@ class App extends React.Component {
     // ifTrueRunGeoLoc();
     // console.log('bananas')
 
+  }
 
 
-    //  = setInterval(loop, 3000);
-    // function loop(){
-    //   if(secCondition){
-    //     getGeoLocation()
-    //     console.log('started')
-    //   }else{
-    //     clearInterval(interval);
-    //     console.log('stopped')
-    //   }
-    // }
+  tick() {
+    console.log('tick')
+    this.setState({
+      coordPosNow: coord,
+    })
+  }
+
+  componentDidMount() {
+    console.log('ComponenetDidMount');
+    this.timerId = setInterval(() => this.tick(), 3000)
+  }
+
+  compnoentWillMount(){
+    console.log('compnoentWillMount');
+    clearInterval(this.timerId);
 
   }
 
-  // componentDidMount () {
-  //   if (this.state.shoulGetGeoData === true) {
-  //     this.setState({
-  //       value: 'Oh MY GOD ITS A CHRISTMAS Miricle',
-  //     })
-  //   }
-  // }
-
-
   render () {    
-    const condition = this.state.shoulGetGeoData ? 'true' : 'false';
+    const condition = this.state.coords ? this.state.coords[this.state.coords.length -1] : 'false';
     //const start = this.state.shoulGetGeoData ? interval : 'false';
 
     return (
@@ -257,8 +258,9 @@ class App extends React.Component {
         </form>
         <button onClick={this.handleSubmit}>Start Running</button>
         <p>{this.state.value}</p>
-        <LogUserData userData={totalDistanceTravelled} name={condition} />
+        <LogUserData userData={totalDistanceTravelled} name={this.state.value} />
         <GoogleMapStatic coords={this.state.coords[this.state.coords.length -1]} />
+        <GoogleWholeRoute coords={this.state.coords} />
       </div>
     );
   }

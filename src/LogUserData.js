@@ -17,17 +17,17 @@ class LogUserData extends React.Component {
     })
   }
 
-  componentWillReceiveProps (nextProps) {
-    this.setState({
-      value: nextProps.userData
-    })
-  }
+  // componentWillReceiveProps (nextProps) {
+  //   this.setState({
+  //     value: nextProps.userData
+  //   })
+  // }
 
   render () {
     return (
       <div>
         <ul>
-          <p>{this.state.value} miles</p>
+          <p>{this.props.userData} miles</p>
         </ul>
       </div>
     )
