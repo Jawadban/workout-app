@@ -45,6 +45,13 @@ if (user) {
 	console.log('no user found')
 }
 
+const auth = firebase.auth();
+auth.createUserWithEmailAndPassword('email@gmail.com', "password").catch(function (error){
+	var errorCode = error.code;
+	var erorMesage = error.message;
+});
+
+
 // firebase.auth().signInWithEmailandPassword('email@gmail.com', "password").catch(function (error){
 // 	var errorCode = error.code;
 // 	var erorMesage = error.message;
