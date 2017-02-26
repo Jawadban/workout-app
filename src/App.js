@@ -9,6 +9,8 @@ import GoogleWholeRoute from './googleMapWholeRoute.js'
 //import Map from 'google-maps-react'
 import * as firebase from 'firebase';
 // import firebaseui from ('firebaseui');
+import SignUp from './signUpComponent.js'
+import LogIn from './loginComponent.js'
 
 var config = {
         apiKey: "AIzaSyDy9_RT6lPT92izSD2TbYQBgm5-W6Vhwlo",
@@ -28,7 +30,6 @@ if (user) {
   console.log('no user found')
 }
 
-//
 const auth = firebase.auth();
 auth.createUserWithEmailAndPassword('email@gmail.com', "password").catch(function (error){
   var errorCode = error.code;
@@ -40,7 +41,13 @@ var ref = database.ref('users')
 ref.set({username: 'Bangash'});
 
 
-
+// function writeUserData(userId, name, email, imageUrl) {
+//   firebase.database().ref('users/' + 'userId').set({
+//     username: 'name',
+//     email: 'email',
+//     profile_picture : imageUrl
+//   });
+// }
 
 //var user = '';
 var coord = [];
@@ -234,12 +241,10 @@ class App extends React.Component {
       });
     }
 
-
-    // if (this.state.shoulGetGeoData === true) {
-    //   getGeoLocation();
-    // }
-    //interval
-
+    // var starCountRef = firebase.database().ref('posts/' + postId + '/starCount');
+    // starCountRef.on('value', function(snapshot) {
+    //   updateCoord(postElement, snapshot.val());
+    // });
 
     // function ifTrueRunGeoLoc () {
     //   if (this.state.shoulGetGeoData) {
@@ -265,12 +270,31 @@ class App extends React.Component {
     })
   }
 
+  writeUserData( coordArra) {
+    firebase.database().ref('users/' + 'userId').set({
+      username: 'name',
+      coord: coordArra,
+    });
+  }
+
+  getUserCoord( coordArra) {
+    firebase.database().ref('users/' + 'userId').set({
+      username: 'name',
+      coord: coordArra,
+    });
+  }
+
   componentDidMount() {
     this.timerId = setInterval(() => this.tick(), 3000)
+    this.dbtimerId = setInterval(() => this.writeUserData(this.state.coordPosNow), 1000)
+//     var database = firebase.database()
+// var ref = database.ref('users')
+// ref.set({username: 'Bangash'});
   }
 
   compnoentWillMount(){
     clearInterval(this.timerId);
+    clearInterval(this.dbtimerId);
   }
 
   render () {    
@@ -279,24 +303,26 @@ class App extends React.Component {
 
     return (
       <div>
-        <form onSubmit={this.handleChange}>
-          <label>
-            <ul>  
-              <p>Please Enter Your Name and Press start to track your locations</p>
-              <input type="text" value={this.state.value} />
-              <input type="password" value={this.state.value} />
-              <input type="submit" value="Submit" />
-            </ul>
-          </label>
-        </form>
+
         <ul>  
+          <LogIn />
           <h1>Start Running?</h1>
-          <button onClick={this.handleSubmit}>Start Running</button>
+          <button style={{backgroundColor: 'blue',
+          color: 'white',
+          padding: '10px 20px',
+          textAlign: 'center',
+          textDecoration: 'none',
+          display: 'inline-block',
+          fontSize: '12px',}}onClick={this.handleSubmit}>Start Running</button>
         </ul>
-        <p>{this.state.value}</p>
-        <LogUserData userData={totalDistanceTravelled} name={this.state.value} />
-        <GoogleMapStatic coords={this.state.coordPosNow[this.state.coordPosNow.length -1]} />
-        <GoogleWholeRoute coords={this.state.coords} />
+        {  this.state.coords.length > 0 ?
+          <div>
+            <LogUserData userData={totalDistanceTravelled} name={this.state.value} />
+            <GoogleMapStatic coords={this.state.coordPosNow[this.state.coordPosNow.length -1]} />
+            <GoogleWholeRoute coords={this.state.coords} />
+          </div>
+          : null
+        }
       </div>
     );
   }
@@ -304,3 +330,13 @@ class App extends React.Component {
 }
 
 export default App;
+        // <form onSubmit={this.handleChange}>
+        //   <label>
+        //     <ul>  
+        //       <p>Please Enter Your Name and Press start to track your locations</p>
+        //      <input type="text" value={this.state.value} />
+        //       <input type="password" value={this.state.value} />
+        //       <input type="submit" value="Submit" />
+        //     </ul>
+        //   </label>
+        // </form>

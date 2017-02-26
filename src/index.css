@@ -2,4 +2,13 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-color: lightblue;
+  background-image: url("http://www.magic4walls.com/wp-content/uploads/2014/03/sport-brunette-nike-photo-girl-running-background-hd-wallpaper.jpg");
+  background-size: 100%;
 }
+
+.imgContainer{
+    float:left;
+}
+
+/*http://bgwall.net/wp-content/uploads/2014/09/baby-cheetah-running-wallpaper-hd.jpg*/

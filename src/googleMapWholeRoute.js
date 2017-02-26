@@ -29,10 +29,13 @@ class GoogleWholeRoute extends React.Component {
 
   render () {
   const mapApiCall = ['http://maps.googleapis.com/maps/api/staticmap?size=400x400&key=AIzaSyDij3hmLUQwFjcHinguhvLwujUGMyGaHgw&path=' + this.state.coordArr + '&markers=color:red|' + this.state.coordArr]
-  const showMapOrNot = this.state.showMap? <img src={mapApiCall}/> : 'Once you click stop you will see Full route map';
+  const showMapOrNot = this.state.showMap? <img src={mapApiCall}/> : 'Map path is getting updated';
     return (
-    	<div>
-      	{showMapOrNot}
+    	<div style={{float: 'left'}}>
+        <ul>  
+          <h1 style={{color: 'black', background:'aqua'}}>Your whole Route until now:</h1>
+      	  <img src={mapApiCall}/> 
+        </ul>  
       </div>
     );
   }

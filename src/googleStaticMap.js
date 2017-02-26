@@ -24,14 +24,15 @@ class GoogleMapStatic extends React.Component {
  //  }
 
   render () {
-  let latitude = this.props.coords? this.props.coords.Latitude: '';
-  let longitude = this.props.coords? this.props.coords.Longitude: '';
-  console.log('im woring fine');
-	const mapVar = ['https://maps.googleapis.com/maps/api/staticmap?markers=color:red|'
-	, this.props.coords? this.props.coords.Latitude: '' , ',' , this.props.coords? this.props.coords.Longitude: '' ,'&zoom=12&size=400x400&key=AIzaSyDij3hmLUQwFjcHinguhvLwujUGMyGaHgw'].join('')
+	  let latitude = this.props.coords? this.props.coords.Latitude: '';
+	  let longitude = this.props.coords? this.props.coords.Longitude: '';
+		const mapVar = ['https://maps.googleapis.com/maps/api/staticmap?markers=color:red|'
+		, this.props.coords? this.props.coords.Latitude: '' , ',' , this.props.coords? this.props.coords.Longitude: '' ,'&zoom=18&size=400x400&key=AIzaSyDij3hmLUQwFjcHinguhvLwujUGMyGaHgw'].join('')
+    
     return (
-    	<div>
+    	<div style={{float: 'left'}}>
   			<ul>	
+    			<h1 style={{color: 'black', background:'aqua'}}>Your current location:</h1>
       		<img src={mapVar}/> 
   			</ul>
       </div>

@@ -25,10 +25,12 @@ class LogUserData extends React.Component {
 
   render () {
     return (
-      <div>
+      <div style={{float: 'left'}}>
         <ul>
-          <h2>Total miles run</h2>
-          <p>{this.props.userData} miles</p>
+          <h1 style={{color: 'black', background:'aqua'}}>Total miles run</h1>
+          <p style={{color: 'red', fontSize: 40}}>{this.props.userData} <span style={{color: 'white', fontSize: 40}}>Miles</span></p>
+          <h1 style={{color: 'black', background:'aqua'}}>Total calories burnt</h1>
+          <p style={{color: 'red', fontSize: 40}}>{this.props.userData*100} <span style={{color: 'white', fontSize: 40}}>Calories</span></p>
         </ul>
       </div>
     )
