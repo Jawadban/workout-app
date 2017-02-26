@@ -75,7 +75,7 @@ function getGeoLocation () {
   }
 
   if (coord[coord.length -2] && coord[coord.length -1]) {
-    totalDistanceTravelled += (distance(37.7632954, -122.4857721, /*coord[coord.length -2].Latitude, coord[coord.length -2].Longitude,*/ coord[coord.length -1].Latitude, coord[coord.length -1].Longitude));
+    totalDistanceTravelled += (distance(/*37.7632954, -122.4857721,*/ coord[coord.length -2].Latitude, coord[coord.length -2].Longitude, coord[coord.length -1].Latitude, coord[coord.length -1].Longitude));
       console.log(totalDistanceTravelled);
   }
 
