@@ -28,7 +28,7 @@ if (user) {
   console.log('no user found')
 }
 
-
+//
 const auth = firebase.auth();
 auth.createUserWithEmailAndPassword('email@gmail.com', "password").catch(function (error){
   var errorCode = error.code;
@@ -260,7 +260,6 @@ class App extends React.Component {
 
 
   tick() {
-    console.log('tick')
     this.setState({
       coordPosNow: coord,
     })
