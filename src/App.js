@@ -7,8 +7,9 @@ import { Router, Route, Link } from 'react-router'
 import GoogleWholeRoute from './googleMapWholeRoute.js'
 //import { withGoogleMap } from "react-google-maps";
 //import Map from 'google-maps-react'
-import * as firebase from 'firebase';
-import firebaseui from ('firebaseui');
+//import * as firebase from 'firebase';
+// import firebaseui from ('firebaseui');
+
 
 
 //var user = '';
@@ -256,7 +257,6 @@ class App extends React.Component {
               <input type="text" value={this.state.value} />
               <input type="password" value={this.state.value} />
               <input type="submit" value="Submit" />
-              <input 
             </ul>
           </label>
         </form>
