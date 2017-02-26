@@ -7,6 +7,8 @@ import { Router, Route, Link } from 'react-router'
 import GoogleWholeRoute from './googleMapWholeRoute.js'
 //import { withGoogleMap } from "react-google-maps";
 //import Map from 'google-maps-react'
+import * as firebase from 'firebase';
+import firebaseui from ('firebaseui');
 
 
 //var user = '';
@@ -161,7 +163,8 @@ class App extends React.Component {
   constructor (props) {
     super (props)
     this.state = {
-      value:'',
+      userName:'',
+      password:'',
       shoulGetGeoData: false,
       coords: coord,
       coordPosNow: '', 
@@ -233,14 +236,11 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log('ComponenetDidMount');
     this.timerId = setInterval(() => this.tick(), 3000)
   }
 
   compnoentWillMount(){
-    console.log('compnoentWillMount');
     clearInterval(this.timerId);
-
   }
 
   render () {    
@@ -249,17 +249,24 @@ class App extends React.Component {
 
     return (
       <div>
-        <form >
+        <form onSubmit={this.handleChange}>
           <label>
-            <p>Please Enter Your Name and Press start to track your locations</p>
-            <input type="text" value={this.state.value} onChange={this.handleChange} />
+            <ul>  
+              <p>Please Enter Your Name and Press start to track your locations</p>
+              <input type="text" value={this.state.value} />
+              <input type="password" value={this.state.value} />
+              <input type="submit" value="Submit" />
+              <input 
+            </ul>
           </label>
-          <input type="submit" value="Submit" />
         </form>
-        <button onClick={this.handleSubmit}>Start Running</button>
+        <ul>  
+          <h1>Start Running?</h1>
+          <button onClick={this.handleSubmit}>Start Running</button>
+        </ul>
         <p>{this.state.value}</p>
         <LogUserData userData={totalDistanceTravelled} name={this.state.value} />
-        <GoogleMapStatic coords={this.state.coords[this.state.coords.length -1]} />
+        <GoogleMapStatic coords={this.state.coordPosNow[this.state.coordPosNow.length -1]} />
         <GoogleWholeRoute coords={this.state.coords} />
       </div>
     );

@@ -29,7 +29,9 @@ class GoogleMapStatic extends React.Component {
 	, this.props.coords? this.props.coords.Latitude: '' , ',' , this.props.coords? this.props.coords.Longitude: '' ,'&zoom=12&size=400x400&key=AIzaSyDij3hmLUQwFjcHinguhvLwujUGMyGaHgw'].join('')
     return (
     	<div>
-      	<img src={mapVar}/> 
+  			<ul>	
+      		<img src={mapVar}/> 
+  			</ul>
       </div>
     );
   }

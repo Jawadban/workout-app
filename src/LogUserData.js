@@ -27,6 +27,7 @@ class LogUserData extends React.Component {
     return (
       <div>
         <ul>
+          <h2>Total miles run</h2>
           <p>{this.props.userData} miles</p>
         </ul>
       </div>
