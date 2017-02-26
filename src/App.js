@@ -7,8 +7,38 @@ import { Router, Route, Link } from 'react-router'
 import GoogleWholeRoute from './googleMapWholeRoute.js'
 //import { withGoogleMap } from "react-google-maps";
 //import Map from 'google-maps-react'
-//import * as firebase from 'firebase';
+import * as firebase from 'firebase';
 // import firebaseui from ('firebaseui');
+
+var config = {
+        apiKey: "AIzaSyDy9_RT6lPT92izSD2TbYQBgm5-W6Vhwlo",
+        authDomain: "workout-app-e4142.firebaseapp.com",
+        databaseURL: "https://workout-app-e4142.firebaseio.com",
+        storageBucket: "workout-app-e4142.appspot.com",
+        messagingSenderId: "1050126888209"
+      };
+      firebase.initializeApp(config);
+
+
+var user = firebase.auth().currentUser;
+
+if (user) {
+  console.log('this is your user')
+} else {
+  console.log('no user found')
+}
+
+
+const auth = firebase.auth();
+auth.createUserWithEmailAndPassword('email@gmail.com', "password").catch(function (error){
+  var errorCode = error.code;
+  var erorMesage = error.message;
+});
+
+var database = firebase.database()
+var ref = database.ref('users')
+ref.set({username: 'Bangash'});
+
 
 
 

@@ -11,6 +11,8 @@ class GoogleMapStatic extends React.Component {
 		}
 	}
 
+
+
 	// componentWillReceiveProps (nextProps) {
  //    if (nextProps) {	
  //    	//console.log('Iv got new Props: '+ nextProps.coords.Latitude)
