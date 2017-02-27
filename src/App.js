@@ -347,7 +347,7 @@ class App extends React.Component {
             </ul>
             <LogUserData userData={totalDistanceTravelled} name={this.state.value} />
             <GoogleMapStatic coords={{Latitude :35.6944561, Longitude: 139.7301791}} />
-            <GoogleWholeRoute coords={[{Latitude :33.5113382, Longitude: 36.2754903}]} />
+            <GoogleWholeRoute coords={[{Latitude :35.6944561, Longitude: 139.7301791}]} />
           </div>
           : null
         }
