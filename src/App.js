@@ -340,7 +340,7 @@ class App extends React.Component {
           </div>
           : null
         }
-        {  this.state.coords.length > 0 ?
+        {  this.state.coords.length > 0  ?
           <div>
             <ul>
               <h1 style={{color: 'white'}}><span style={{color: 'red'}}>Kam</span> in <span style={{color: 'pink'}}>Damaskus, Syria</span></h1>
