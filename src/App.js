@@ -171,18 +171,6 @@ function distance(lat1,lon1,lat2,lon2) {
 //       </img>
 
 
-// class GoogleMapStatic extends React.Component {
-//   constructor (props) {
-//     super (props)
-//   }
-//   render () {
-//     return (   
-//       <img src='https://maps.googleapis.com/maps/api/staticmap?markers=color:red|37.7837403,-122.40905780000001&zoom=12&size=400x400&key=AIzaSyDij3hmLUQwFjcHinguhvLwujUGMyGaHgw' /> 
-//     );
-//   }
-// }
-
-
 
 // class DisplayTotalDistance extends React.Component {
 //   constructor () {
@@ -205,7 +193,8 @@ class App extends React.Component {
       password:'',
       shoulGetGeoData: false,
       coords: coord,
-      coordPosNow: '', 
+      coordPosNow: '',
+      dbCoordsNow: '', 
       intervalId: null,
     }
     this.handleChange = this.handleChange.bind(this)
@@ -270,23 +259,39 @@ class App extends React.Component {
     })
   }
 
-  writeUserData( coordArra) {
+
+  writeUserData (coordArra) {
     firebase.database().ref('users/' + 'userId').set({
       username: 'name',
       coord: coordArra,
     });
   }
 
-  getUserCoord( coordArra) {
-    firebase.database().ref('users/' + 'userId').set({
-      username: 'name',
-      coord: coordArra,
+
+  getUserCoord () {
+    const self = this
+    firebase.database().ref('users/' + 'userId').on('value', function(snapshot) {
+      console.log('snapshot:- ' + snapshot);
+      const anotherSelf = this;
+      self.setState({
+        dbCoordsNow: anotherSelf.snapshot.val().coord,
+      });
     });
   }
+
+//   var userId = firebase.auth().currentUser.uid;
+// return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
+//   var username = snapshot.val().username;
+//   // ...
+// });
 
   componentDidMount() {
     this.timerId = setInterval(() => this.tick(), 3000)
     this.dbtimerId = setInterval(() => this.writeUserData(this.state.coordPosNow), 1000)
+    //this.getDbtimerId = setInterval(() => this.getUserCoord, 1000)
+    this.getUserCoord ();
+
+
 //     var database = firebase.database()
 // var ref = database.ref('users')
 // ref.set({username: 'Bangash'});
@@ -295,6 +300,7 @@ class App extends React.Component {
   compnoentWillMount(){
     clearInterval(this.timerId);
     clearInterval(this.dbtimerId);
+    //clearInterval(this.getDbtimerId);
   }
 
   render () {    
@@ -313,13 +319,35 @@ class App extends React.Component {
           textAlign: 'center',
           textDecoration: 'none',
           display: 'inline-block',
-          fontSize: '12px',}}onClick={this.handleSubmit}>Start Running</button>
+          fontSize: '12px',}} onClick={this.handleSubmit}>Start Running</button>
         </ul>
         {  this.state.coords.length > 0 ?
           <div>
             <LogUserData userData={totalDistanceTravelled} name={this.state.value} />
-            <GoogleMapStatic coords={this.state.coordPosNow[this.state.coordPosNow.length -1]} />
+            <GoogleMapStatic coords={this.state.coords[this.state.coords.length -1]} />
             <GoogleWholeRoute coords={this.state.coords} />
+          </div>
+          : null
+        }
+        {  this.state.coords.length > 0 ?
+          <div>
+            <ul>
+              <h1 style={{color: 'white'}}><span style={{color: 'red'}}>Dani</span> in <span style={{color: 'pink'}}>Tokoyo</span></h1>
+            </ul>
+            <LogUserData userData={totalDistanceTravelled} name={this.state.value} />
+            <GoogleMapStatic coords={{Latitude :35.6944561, Longitude: 139.7301791}} />
+            <GoogleWholeRoute coords={[{Latitude :35.6944561, Longitude: 139.7301791}]} />
+          </div>
+          : null
+        }
+        {  this.state.coords.length > 0 ?
+          <div>
+            <ul>
+              <h1 style={{color: 'white'}}><span style={{color: 'red'}}>Kam</span> in <span style={{color: 'pink'}}>Damaskus, Syria</span></h1>
+            </ul>
+            <LogUserData userData={totalDistanceTravelled} name={this.state.value} />
+            <GoogleMapStatic coords={{Latitude :33.5113382, Longitude: 36.2754903}} />
+            <GoogleWholeRoute coords={[{Latitude :33.5113382, Longitude: 36.2754903}]} />
           </div>
           : null
         }
