@@ -16,7 +16,7 @@ class LogIn extends React.Component {
   }
 
   handleChange(event) {
-    //this.setState({value: event.target.value})
+    //this.setState({value: event.target.value});
     const target = event.target;
     //const value = target.type === 'text' ? target.checked : target.value;
     const name = target.name;
@@ -32,7 +32,7 @@ class LogIn extends React.Component {
   }
 
   handleSubmit(event) {
-    // alert('A name was submitted: ' + this.state.value);
+    // alert('A name was submitted: ' + this.state.value)
 
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
     // Handle Errors here.
