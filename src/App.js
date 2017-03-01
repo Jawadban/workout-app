@@ -11,6 +11,7 @@ import * as firebase from 'firebase';
 // import firebaseui from ('firebaseui');
 import SignUp from './signUpComponent.js'
 import LogIn from './loginComponent.js'
+import SignOut from './SignOut.js'
 
 var config = {
         apiKey: "AIzaSyDy9_RT6lPT92izSD2TbYQBgm5-W6Vhwlo",
@@ -189,6 +190,7 @@ class App extends React.Component {
   constructor (props) {
     super (props)
     this.state = {
+      user: null,
       userName:'',
       password:'',
       shoulGetGeoData: false,
@@ -295,11 +297,14 @@ class App extends React.Component {
   render () {    
     const condition = this.state.coords ? this.state.coords[this.state.coords.length -1] : 'false';
     //const start = this.state.shoulGetGeoData ? interval : 'false';
-
+    var val = this;
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         // User is signed in.
-        console.log('************') 
+        // console.log('*************')
+        // val.setState({
+        //   user: user
+        // })
 
       } else {
         // No user is signed in.
@@ -310,16 +315,21 @@ class App extends React.Component {
 
     return (
       <div>
-        <ul>  
-          <SignUp />
-          <h1>Start Running?</h1>
-          <button style={{backgroundColor: 'blue',
-          color: 'white',
-          padding: '10px 20px',
-          textAlign: 'center',
-          textDecoration: 'none',
-          display: 'inline-block',
-          fontSize: '12px',}} onClick={this.handleSubmit}>Start Running</button>
+        <ul>    
+            {
+              this.user ? <SignOut/> : <SignOut />
+              //<h1>You are signed in</h1>  
+            }
+          <div>
+            <h1>Start Running?</h1>
+            <button style={{backgroundColor: 'blue',
+            color: 'white',
+            padding: '10px 20px',
+            textAlign: 'center',
+            textDecoration: 'none',
+            display: 'inline-block',
+            fontSize: '12px',}} onClick={this.handleSubmit}>Start Running</button>
+          </div>
         </ul>
         {  this.state.coords.length > 0 ?
           <div>
