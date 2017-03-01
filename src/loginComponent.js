@@ -32,7 +32,7 @@ class LogIn extends React.Component {
   }
 
   handleSubmit(event) {
-    // alert('A name was submitted: ' + this.state.value)
+    // alert('A name was submitted: ' + this.state.value);
 
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
     // Handle Errors here.
