@@ -1,28 +1,5 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
-// import './App.css';
-// import GoogleMapStatic from './googleStaticMap.js';
-// import LogUserData from './LogUserData.js'
-// import { Router, Route, Link } from 'react-router'
-// import GoogleWholeRoute from './googleMapWholeRoute.js'
-//import { withGoogleMap } from "react-google-maps";
-//import Map from 'google-maps-react'
 import * as firebase from 'firebase';
-// import firebaseui from ('firebaseui');
-
-// var config = {
-//   apiKey: "AIzaSyDy9_RT6lPT92izSD2TbYQBgm5-W6Vhwlo",
-//   authDomain: "workout-app-e4142.firebaseapp.com",
-//   databaseURL: "https://workout-app-e4142.firebaseio.com",
-//   storageBucket: "workout-app-e4142.appspot.com",
-//   messagingSenderId: "1050126888209"
-// };
-// firebase.initializeApp(config);
-
-
-// var user = firebase.auth().currentUser;
-
-
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -66,6 +43,13 @@ class SignUp extends React.Component {
     event.preventDefault();
   }
 
+//   function writeUserData(userId, name, email, imageUrl) {
+//   firebase.database().ref('users/' + 'userId').set({
+//     username: 'name',
+//     email: 'email',
+//     profile_picture : imageUrl
+//   });
+// }
   render() {
     return (
       <form onSubmit={this.handleSubmit}>

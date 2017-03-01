@@ -36,10 +36,9 @@ auth.createUserWithEmailAndPassword('email@gmail.com', "password").catch(functio
   var erorMesage = error.message;
 });
 
-var database = firebase.database()
-var ref = database.ref('users')
-ref.set({username: 'Bangash'});
-
+// var database = firebase.database()
+// var ref = database.ref('users/' + 'userId')
+// ref.set({username: 'Bangash'});
 
 // function writeUserData(userId, name, email, imageUrl) {
 //   firebase.database().ref('users/' + 'userId').set({
@@ -61,13 +60,13 @@ function getGeoLocation () {
   };
 
   function success(pos) {
-    if (coord.length > 3) {
+    if (coord.length > 30) {
       return coord;
     }
     var crd = pos.coords;
     //if (crd.length > 0){
-      coord.push( {Latitude : crd.latitude,
-      Longitude: crd.longitude} );
+    coord.push( {Latitude : crd.latitude,
+    Longitude: crd.longitude} );
 
   };
 
@@ -77,13 +76,13 @@ function getGeoLocation () {
 
   navigator.geolocation.getCurrentPosition(success, error, options);
 
-  if (coord.length) {
-  console.log(coord); 
-  }
+  // if (coord.length) {
+  //   console.log(coord); 
+  // }
 
   if (coord[coord.length -2] && coord[coord.length -1]) {
     totalDistanceTravelled += (distance(/*37.7632954, -122.4857721,*/ coord[coord.length -2].Latitude, coord[coord.length -2].Longitude, coord[coord.length -1].Latitude, coord[coord.length -1].Longitude));
-      console.log(totalDistanceTravelled);
+    console.log(totalDistanceTravelled);
   }
 
   //console.log(coord);
@@ -235,21 +234,6 @@ class App extends React.Component {
     //   updateCoord(postElement, snapshot.val());
     // });
 
-    // function ifTrueRunGeoLoc () {
-    //   if (this.state.shoulGetGeoData) {
-    //     setTimeout ( function () {
-    //       getGeoLocation();
-    //       console.log ('started: ' + this.state.shoulGetGeoData);
-    //       if (this.state.shoulGetGeoData) {
-    //         ifTrueRunGeoLoc.call(this)
-    //       }
-    //     }.bind(this)
-    //     , 3000)
-    //   } 
-    // }
-    // ifTrueRunGeoLoc();
-    // console.log('bananas')
-
   }
 
 
@@ -262,20 +246,24 @@ class App extends React.Component {
 
   writeUserData (coordArra) {
     firebase.database().ref('users/' + 'userId').set({
-      username: 'name',
-      coord: coordArra,
+      coord: coord
     });
   }
 
 
   getUserCoord () {
-    const self = this
-    firebase.database().ref('users/' + 'userId').on('value', function(snapshot) {
-      console.log('snapshot:- ' + snapshot);
-      const anotherSelf = this;
-      self.setState({
-        dbCoordsNow: anotherSelf.snapshot.val().coord,
+    console.log('<<<<<<<<<<<<<<<<<<<')
+    const thisVal = this;
+    // (function () {
+    //   console.log(self)
+    // })();
+    firebase.database().ref('users/userId' ).on('value', function(snapshot) {
+      console.log('snapshot:- ' + snapshot.val().coord );
+      //const anotherSelf = this;
+      thisVal.setState({
+        dbCoordsNow: snapshot.val().coord,
       });
+      console.log(thisVal.state.dbCoordsNow, '>>>>>>>>')
     });
   }
 
@@ -288,8 +276,8 @@ class App extends React.Component {
   componentDidMount() {
     this.timerId = setInterval(() => this.tick(), 3000)
     this.dbtimerId = setInterval(() => this.writeUserData(this.state.coordPosNow), 1000)
-    //this.getDbtimerId = setInterval(() => this.getUserCoord, 1000)
-    this.getUserCoord ();
+    this.getDbtimerId = setInterval(() => this.getUserCoord(), 1000)
+    //this.getUserCoord ();
 
 
 //     var database = firebase.database()
@@ -300,7 +288,7 @@ class App extends React.Component {
   compnoentWillMount(){
     clearInterval(this.timerId);
     clearInterval(this.dbtimerId);
-    //clearInterval(this.getDbtimerId);
+    clearInterval(this.getDbtimerId);
   }
 
   render () {    
@@ -335,8 +323,8 @@ class App extends React.Component {
               <h1 style={{color: 'white'}}><span style={{color: 'red'}}>Dani</span> in <span style={{color: 'pink'}}>Tokoyo</span></h1>
             </ul>
             <LogUserData userData={totalDistanceTravelled} name={this.state.value} />
-            <GoogleMapStatic coords={{Latitude :35.694456, Longitude: 139.730179}} />
-            <GoogleWholeRoute coords={[{Latitude :35.694456, Longitude: 139.730179}]} />
+            <GoogleMapStatic coords={this.state.dbCoordsNow[this.state.dbCoordsNow.length -1]} />
+            <GoogleWholeRoute coords={this.state.dbCoordsNow} />
           </div>
           : null
         }
@@ -346,8 +334,8 @@ class App extends React.Component {
               <h1 style={{color: 'white'}}><span style={{color: 'red'}}>Kam</span> in <span style={{color: 'pink'}}>Damaskus, Syria</span></h1>
             </ul>
             <LogUserData userData={totalDistanceTravelled} name={this.state.value} />
-            <GoogleMapStatic coords={{Latitude :35.694456, Longitude: 139.7301791}} />
-            <GoogleWholeRoute coords={[{Latitude :35.6944561, Longitude: 139.7301791}]} />
+            <GoogleMapStatic coords={{Latitude :35.604456, Longitude: 139.7901791}} />
+            <GoogleWholeRoute coords={[{Latitude :35.604561, Longitude: 139.7901791}]} />
           </div>
           : null
         }

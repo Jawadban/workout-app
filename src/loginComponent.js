@@ -24,6 +24,11 @@ class LogIn extends React.Component {
     this.setState({
       [name]: target.value
     });
+
+    var database = firebase.database()
+    var ref = database.ref('users')
+    ref.update({username: target.value});
+
   }
 
   handleSubmit(event) {
@@ -33,13 +38,14 @@ class LogIn extends React.Component {
     // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
-      if (errorCode == 'auth/weak-password') {
+      if (errorCode === 'auth/weak-password') {
         alert('The password is too weak.');
       } else {
         alert(errorMessage);
       }
       console.log(error);
     });
+
     var database = firebase.database()
     var ref = database.ref('users')
     ref.set({username: this.state.username},);

@@ -8,7 +8,6 @@ class LogUserData extends React.Component {
     this.state = {
       value: this.props.userData,
     }
-
   }
 
   handleUserData (event) {
