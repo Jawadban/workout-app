@@ -87,27 +87,7 @@ function getGeoLocation () {
     console.log(totalDistanceTravelled);
   }
 
-  //console.log(coord);
-
-  // setInterval(function(){ getGeoLocation();  
-  //   console.log (coord[coord.length -1]) 
-  //   if (coord[coord.length -2] && coord[coord.length -1]) {
-   //  totalDistanceTravelled += (distance(/*37.7632954, -122.4857721,*/ coord[coord.length -2].Latitude, coord[coord.length -2].Longitude, coord[coord.length -1].Latitude, coord[coord.length -1].Longitude));
-  //     console.log(totalDistanceTravelled);  
-  //   }
-  // }, 10000);
-
 }
-
-// function callGetGeoLoc () {
-//   setInterval(function(){ getGeoLocation();  
-//     console.log (coord[coord.length -1]) 
-//     if (coord[coord.length -2] && coord[coord.length -1]) {
- //     totalDistanceTravelled += (distance(/*37.7632954, -122.4857721,*/ coord[coord.length -2].Latitude, coord[coord.length -2].Longitude, coord[coord.length -1].Latitude, coord[coord.length -1].Longitude));
-//       console.log(totalDistanceTravelled);  
-//     }
-//   }, 10000);
-// }
 
 function distance(lat1,lon1,lat2,lon2) {
   var R = 6371; // miles (change this constant to get miles)
@@ -282,6 +262,27 @@ class App extends React.Component {
     this.getDbtimerId = setInterval(() => this.getUserCoord(), 1000)
     //this.getUserCoord ();
 
+    var val = this;
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        console.log('*************');
+        (function () {
+          //console.log('//\\/\/\/\/\/\//\/');
+          val.setState({
+            user: user
+          })
+        })();
+        
+        console.log(this.state.user)
+      } else {
+        // No user is signed in.
+        console.log('===========') 
+        val.setState({
+          user: null
+        })
+      }
+    });
 
 //     var database = firebase.database()
 // var ref = database.ref('users')
@@ -297,39 +298,26 @@ class App extends React.Component {
   render () {    
     const condition = this.state.coords ? this.state.coords[this.state.coords.length -1] : 'false';
     //const start = this.state.shoulGetGeoData ? interval : 'false';
-    var val = this;
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        // User is signed in.
-        // console.log('*************')
-        // val.setState({
-        //   user: user
-        // })
-
-      } else {
-        // No user is signed in.
-        console.log('===========') 
-
-      }
-    });
-
+    console.log('The $$$$$$$$$$$$', this.state.user)
     return (
       <div>
         <ul>    
-            {
-              this.user ? <SignOut/> : <SignOut />
-              //<h1>You are signed in</h1>  
-            }
-          <div>
-            <h1>Start Running?</h1>
-            <button style={{backgroundColor: 'blue',
-            color: 'white',
-            padding: '10px 20px',
-            textAlign: 'center',
-            textDecoration: 'none',
-            display: 'inline-block',
-            fontSize: '12px',}} onClick={this.handleSubmit}>Start Running</button>
-          </div>
+          {
+            this.state.user ? <SignOut/> : <SignUp />
+            //<h1>You are signed in</h1>  
+          }
+          { (this.state.user) ? 
+            <div>
+              <h1>Start Running?</h1>
+              <button style={{backgroundColor: 'blue',
+              color: 'white',
+              padding: '10px 20px',
+              textAlign: 'center',
+              textDecoration: 'none',
+              display: 'inline-block',
+              fontSize: '12px',}} onClick={this.handleSubmit}>Start Running</button>
+            </div> : false
+          }
         </ul>
         {  this.state.coords.length > 0 ?
           <div>
