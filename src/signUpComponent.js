@@ -27,7 +27,7 @@ class SignUp extends React.Component {
 
   handleSubmit(event) {
     // alert('A name was submitted: ' + this.state.value);
-
+    //const val = this
     firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
     // Handle Errors here.
       var errorCode = error.code;

@@ -21,20 +21,21 @@ var config = {
       };
       firebase.initializeApp(config);
 
+// const auth = firebase.auth();
+// auth.createUserWithEmailAndPassword('email@gmail.com', "password").catch(function (error){
+//   var errorCode = error.code;
+//   var erorMesage = error.message;
+// });
 
-var user = firebase.auth().currentUser;
 
-if (user) {
-  console.log('this is your user')
-} else {
-  console.log('no user found')
-}
+// var user = firebase.auth().currentUser;
 
-const auth = firebase.auth();
-auth.createUserWithEmailAndPassword('email@gmail.com', "password").catch(function (error){
-  var errorCode = error.code;
-  var erorMesage = error.message;
-});
+// if (user) {
+//   console.log('this is your user')
+// } else {
+//   console.log('no user found')
+// }
+
 
 // var database = firebase.database()
 // var ref = database.ref('users/' + 'userId')
@@ -295,11 +296,22 @@ class App extends React.Component {
     const condition = this.state.coords ? this.state.coords[this.state.coords.length -1] : 'false';
     //const start = this.state.shoulGetGeoData ? interval : 'false';
 
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        console.log('************') 
+
+      } else {
+        // No user is signed in.
+        console.log('===========') 
+
+      }
+    });
+
     return (
       <div>
-
         <ul>  
-          <LogIn />
+          <SignUp />
           <h1>Start Running?</h1>
           <button style={{backgroundColor: 'blue',
           color: 'white',
