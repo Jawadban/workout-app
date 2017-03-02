@@ -83,8 +83,10 @@ function getGeoLocation () {
   // }
 
   if (coord[coord.length -2] && coord[coord.length -1]) {
-    totalDistanceTravelled += (distance(/*37.7632954, -122.4857721,*/ coord[coord.length -2].Latitude, coord[coord.length -2].Longitude, coord[coord.length -1].Latitude, coord[coord.length -1].Longitude));
-    console.log(totalDistanceTravelled);
+    var distanceBetweenLastTwoPoints = distance(/*37.7632954, -122.4857721,*/ coord[coord.length -2].Latitude, coord[coord.length -2].Longitude, coord[coord.length -1].Latitude, coord[coord.length -1].Longitude)
+    totalDistanceTravelled += (distanceBetweenLastTwoPoints);
+    //console.log(totalDistanceTravelled);
+    console.log(distanceBetweenLastTwoPoints);
   }
 
 }
@@ -268,7 +270,6 @@ class App extends React.Component {
         // User is signed in.
         console.log('*************');
         (function () {
-          //console.log('//\\/\/\/\/\/\//\/');
           val.setState({
             user: user
           })
@@ -298,7 +299,6 @@ class App extends React.Component {
   render () {    
     const condition = this.state.coords ? this.state.coords[this.state.coords.length -1] : 'false';
     //const start = this.state.shoulGetGeoData ? interval : 'false';
-    console.log('The $$$$$$$$$$$$', this.state.user)
     return (
       <div>
         <ul>    
@@ -307,41 +307,35 @@ class App extends React.Component {
             //<h1>You are signed in</h1>  
           }
           { (this.state.user) ? 
-            <div>
+            <div style={{float: 'left'}}>
               <h1>Start Running?</h1>
-              <button style={{backgroundColor: 'blue',
-              color: 'white',
-              padding: '10px 20px',
-              textAlign: 'center',
-              textDecoration: 'none',
-              display: 'inline-block',
-              fontSize: '12px',}} onClick={this.handleSubmit}>Start Running</button>
+              <button className='buttn' onClick={this.handleSubmit}>Start Running</button>
             </div> : false
           }
         </ul>
-        {  this.state.coords.length > 0 ?
-          <div>
+        {  this.state.coords.length > 0 && this.state.user ?
+          <div style={{float: 'left'}}>
             <LogUserData userData={totalDistanceTravelled} name={this.state.value} />
             <GoogleMapStatic coords={this.state.coords[this.state.coords.length -1]} />
             <GoogleWholeRoute coords={this.state.coords} />
           </div>
           : null
         }
-        {  this.state.coords.length > 0 ?
-          <div>
+        {  this.state.coords.length > 0 && this.state.user ?
+          <div style={{float: 'left'}}>
             <ul>
               <h1 style={{color: 'white'}}><span style={{color: 'red'}}>Dani</span> in <span style={{color: 'pink'}}>Tokoyo</span></h1>
-            </ul>
+            </ul>            
             <LogUserData userData={totalDistanceTravelled} name={this.state.value} />
             <GoogleMapStatic coords={this.state.dbCoordsNow[this.state.dbCoordsNow.length -1]} />
             <GoogleWholeRoute coords={this.state.dbCoordsNow} />
           </div>
           : null
         }
-        {  this.state.coords.length > 0 ?
-          <div>
+        {  this.state.coords.length > 0 && this.state.user ?
+          <div style={{float: 'left'}}>
             <ul>
-              <h1 style={{color: 'white'}}><span style={{color: 'red'}}>Kam</span> in <span style={{color: 'pink'}}>Damaskus, Syria</span></h1>
+              <h1 style={{color: 'white'}}><span style={{color: 'red'}}>Dani</span> in <span style={{color: 'pink'}}>Tokoyo</span></h1>
             </ul>
             <LogUserData userData={totalDistanceTravelled} name={this.state.value} />
             <GoogleMapStatic coords={{Latitude :35.604456, Longitude: 139.7901791}} />
@@ -366,3 +360,6 @@ export default App;
         //     </ul>
         //   </label>
         // </form>
+
+
+              // <h1 style={{color: 'white'}}><span style={{color: 'red'}}>Dani</span> in <span style={{color: 'pink'}}>Tokoyo</span></h1>

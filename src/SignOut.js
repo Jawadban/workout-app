@@ -29,15 +29,16 @@ class SignOut extends React.Component {
 
   render () {
     return (
-      <div >  
-					<h1>Sign Out</h1>
-          <button style={{backgroundColor: 'blue',
-          color: 'white',
-          padding: '10px 20px',
-          textAlign: 'center',
-          textDecoration: 'none',
-          display: 'inline-block',
-          fontSize: '12px',}} onClick={this.handleSignOut}>Sign Out</button>
+      <div style={{float: 'right'}}>  
+				<h1 style={{ marginRight: '35'}}>Sign Out?</h1>
+        <button style={{backgroundColor: 'blue',
+        color: 'white',
+        padding: '10px 20px',
+        textAlign: 'center',
+        textDecoration: 'none',
+        display: 'inline-block',
+        fontSize: '12px', 
+        width: '12em',}} onClick={this.handleSignOut}>Sign Out</button>
       </div>
     )
   }

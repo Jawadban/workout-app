@@ -39,6 +39,17 @@ class SignUp extends React.Component {
       }
       console.log(error);
     });
+
+
+    // var user = firebase.auth().currentUser;
+    // user.updateProfile({
+    //   displayName: this.state.userName,
+    //   photoURL: "https://example.com/jane-q-user/profile.jpg"
+    // }).then(function() {
+    //   // Update successful.
+    // }, function(error) {
+    //   // An error happened.
+    // });
     event.preventDefault();
   }
 
