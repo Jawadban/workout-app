@@ -32,7 +32,7 @@ var config = {
 // var user = firebase.auth().currentUser;
 
 // if (user) {
-//   console.log('this is your user')
+//   console.log('this is your user: *****>>>>>': user)
 // } else {
 //   console.log('no user found')
 // }
@@ -193,12 +193,7 @@ class App extends React.Component {
 
 
   handleSubmit (event) {
-    // console.log('before setState', this.state.shoulGetGeoData)
 
-    // this.setState ({
-    //   shoulGetGeoData: !this.state.shoulGetGeoData,
-    // });
-    // console.log('after setState', this.state.shoulGetGeoData)
     event.preventDefault()
 
     if(this.state.intervalId) {
@@ -297,7 +292,9 @@ class App extends React.Component {
   }
 
   render () {    
+    console.log('This is the user {{{{{{{{{{', this.state.user)
     const condition = this.state.coords ? this.state.coords[this.state.coords.length -1] : 'false';
+    const showNameIfLoggedin = this.state.user ? this.state.user.displayName: false;
     //const start = this.state.shoulGetGeoData ? interval : 'false';
     return (
       <div>
@@ -315,18 +312,15 @@ class App extends React.Component {
         </ul>
         {  this.state.coords.length > 0 && this.state.user ?
           <div style={{float: 'left'}}>
-            <LogUserData userData={totalDistanceTravelled} name={this.state.value} />
+            <LogUserData userData={totalDistanceTravelled} name={showNameIfLoggedin} />
             <GoogleMapStatic coords={this.state.coords[this.state.coords.length -1]} />
             <GoogleWholeRoute coords={this.state.coords} />
           </div>
           : null
         }
         {  this.state.coords.length > 0 && this.state.user ?
-          <div style={{float: 'left'}}>
-            <ul>
-              <h1 style={{color: 'white'}}><span style={{color: 'red'}}>Dani</span> in <span style={{color: 'pink'}}>Tokoyo</span></h1>
-            </ul>            
-            <LogUserData userData={totalDistanceTravelled} name={this.state.value} />
+          <div style={{float: 'left'}}>           
+            <LogUserData userData={totalDistanceTravelled} name={'James'} />
             <GoogleMapStatic coords={this.state.dbCoordsNow[this.state.dbCoordsNow.length -1]} />
             <GoogleWholeRoute coords={this.state.dbCoordsNow} />
           </div>

@@ -4,17 +4,17 @@ import React from 'react';
 class LogUserData extends React.Component {
   constructor (props) {
     super (props)
-    this.handleUserData = this.handleUserData.bind(this)
-    this.state = {
-      value: this.props.userData,
-    }
+    // this.handleUserData = this.handleUserData.bind(this)
+    // this.state = {
+    //   value: this.props.userData,
+    // }
   }
 
-  handleUserData (event) {
-    this.setState({
-      value: this.props.firstName
-    })
-  }
+  // handleUserData (event) {
+  //   this.setState({
+  //     value: this.props.firstName
+  //   })
+  // }
 
   // componentWillReceiveProps (nextProps) {
   //   this.setState({
@@ -26,6 +26,7 @@ class LogUserData extends React.Component {
     return (
       <div style={{float: 'left'}}>
         <ul>
+          <h1 style={{color: 'white'}}><span style={{color: 'red'}}>{this.props.name}</span> in <span style={{color: 'pink'}}>Tokoyo</span></h1>
           <h1 style={{color: 'black', background:'aqua'}}>Total miles run</h1>
           <p style={{color: 'red', fontSize: 40}}>{(this.props.userData).toFixed(6)} <span style={{color: 'white', fontSize: 40}}>Miles</span></p>
           <h1 style={{color: 'black', background:'aqua'}}>Total calories burnt</h1>

@@ -14,7 +14,7 @@ class GoogleWholeRoute extends React.Component {
 
 	componentWillReceiveProps (nextProps) {
     if (nextProps.coords.length>0) {	
-    	console.log('Iv got Road Map: '+ nextProps.coords[nextProps.coords.length -1].Latitude)
+    	//console.log('Iv got Road Map: '+ nextProps.coords[nextProps.coords.length -1].Latitude)
     	const newCoords = [];
     	nextProps.coords.map(function(coord){
     		newCoords.push(coord.Latitude.toString() + ',' + coord.Longitude.toString())
