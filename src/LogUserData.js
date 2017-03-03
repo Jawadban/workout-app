@@ -26,7 +26,7 @@ class LogUserData extends React.Component {
     return (
       <div style={{float: 'left'}}>
         <ul>
-          <h1 style={{color: 'white'}}><span style={{color: 'red'}}>{this.props.name}</span> in <span style={{color: 'pink'}}>Tokoyo</span></h1>
+          <h1 style={{color: 'white'}}><span style={{color: 'red'}}>{this.props.name}</span> </h1>
           <h1 style={{color: 'black', background:'aqua'}}>Total miles run</h1>
           <p style={{color: 'red', fontSize: 40}}>{(this.props.userData).toFixed(6)} <span style={{color: 'white', fontSize: 40}}>Miles</span></p>
           <h1 style={{color: 'black', background:'aqua'}}>Total calories burnt</h1>

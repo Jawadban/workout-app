@@ -225,7 +225,7 @@ class App extends React.Component {
 
 
   writeUserData (coordArra) {
-    firebase.database().ref('users/' + 'userId').set({
+    firebase.database().ref('users/' + this.state.user.uid).set({
       coord: coord
     });
   }
@@ -237,7 +237,7 @@ class App extends React.Component {
     // (function () {
     //   console.log(self)
     // })();
-    firebase.database().ref('users/userId' ).on('value', function(snapshot) {
+    firebase.database().ref('users/' + this.state.user.uid ).on('value', function(snapshot) {
       console.log('snapshot:- ' + snapshot.val().coord );
       //const anotherSelf = this;
       thisVal.setState({
