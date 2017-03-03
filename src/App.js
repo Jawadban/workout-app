@@ -12,6 +12,8 @@ import * as firebase from 'firebase';
 import SignUp from './signUpComponent.js'
 import LogIn from './loginComponent.js'
 import SignOut from './SignOut.js'
+//import FB from 'fb';
+
 
 var config = {
         apiKey: "AIzaSyDy9_RT6lPT92izSD2TbYQBgm5-W6Vhwlo",
@@ -238,11 +240,13 @@ class App extends React.Component {
     //   console.log(self)
     // })();
     firebase.database().ref('users/' + this.state.user.uid ).on('value', function(snapshot) {
-      console.log('snapshot:- ' + snapshot.val().coord );
+      //console.log('snapshot:- ' + snapshot.val().coord );
       //const anotherSelf = this;
-      thisVal.setState({
-        dbCoordsNow: snapshot.val().coord,
-      });
+      if (snapshot.val()) {  
+        thisVal.setState({
+          dbCoordsNow: snapshot.val().coord,
+        });
+      }
       console.log(thisVal.state.dbCoordsNow, '>>>>>>>>')
     });
   }
@@ -256,8 +260,11 @@ class App extends React.Component {
   componentDidMount() {
     this.timerId = setInterval(() => this.tick(), 3000)
     this.dbtimerId = setInterval(() => this.writeUserData(this.state.coordPosNow), 1000)
-    this.getDbtimerId = setInterval(() => this.getUserCoord(), 1000)
+    //this.getDbtimerId = setInterval(() => this.getUserCoord(), 1000)
     //this.getUserCoord ();
+
+ 
+
 
     var val = this;
     firebase.auth().onAuthStateChanged(function(user) {
@@ -280,6 +287,18 @@ class App extends React.Component {
       }
     });
 
+      firebase.database().ref('users/' + this.state.user.uid ).on('value', function(snapshot) {
+        //console.log('snapshot:- ' + snapshot.val().coord );
+        //const anotherSelf = this;
+        if (snapshot.val()) {  
+          this.setState({
+            dbCoordsNow: snapshot.val().coord,
+          });
+        }
+        console.log(this.state.dbCoordsNow, '>>>>>>>>')
+      });
+
+
 //     var database = firebase.database()
 // var ref = database.ref('users')
 // ref.set({username: 'Bangash'});
@@ -292,9 +311,24 @@ class App extends React.Component {
   }
 
   render () {    
-    console.log('This is the user {{{{{{{{{{', this.state.user)
+    //console.log('This is the user {{{{{{{{{{', this.state.user)
     const condition = this.state.coords ? this.state.coords[this.state.coords.length -1] : 'false';
-    const showNameIfLoggedin = this.state.user ? this.state.user.displayName: false;
+    const showNameIfLoggedin = this.state.user ? this.state.user: false;
+
+
+
+    // FB.setAccessToken('access_token');
+    // var body = 'My first post using facebook-node-sdk';
+    // FB.api('me/feed', 'post', { message: body }, function (res) {
+    //   if(!res || res.error) {
+    //     console.log(!res ? 'error occurred' : res.error);
+    //     return;
+    //   }
+    //   console.log('Post Id: ' + res.id);
+    // });
+
+
+
     //const start = this.state.shoulGetGeoData ? interval : 'false';
     return (
       <div>
@@ -312,7 +346,7 @@ class App extends React.Component {
         </ul>
         {  this.state.coords.length > 0 && this.state.user ?
           <div style={{float: 'left'}}>
-            <LogUserData userData={totalDistanceTravelled} name={showNameIfLoggedin} />
+            <LogUserData userData={totalDistanceTravelled} name={showNameIfLoggedin.displayName} pic={showNameIfLoggedin.photoURL}/>
             <GoogleMapStatic coords={this.state.coords[this.state.coords.length -1]} />
             <GoogleWholeRoute coords={this.state.coords} />
           </div>
@@ -321,8 +355,8 @@ class App extends React.Component {
         {  this.state.coords.length > 0 && this.state.user ?
           <div style={{float: 'left'}}>           
             <LogUserData userData={totalDistanceTravelled} name={'James'} />
-            <GoogleMapStatic coords={this.state.dbCoordsNow[this.state.dbCoordsNow.length -1]} />
-            <GoogleWholeRoute coords={this.state.dbCoordsNow} />
+            <GoogleMapStatic coords={this.state.coords[this.state.coords.length -1]} />
+            <GoogleWholeRoute coords={this.state.coords} />
           </div>
           : null
         }

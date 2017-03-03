@@ -23,9 +23,11 @@ class LogUserData extends React.Component {
   // }
 
   render () {
+    const user = this.props.name
     return (
       <div style={{float: 'left'}}>
         <ul>
+          <img src={this.props.pic} style={{ border: '25px'}}/>
           <h1 style={{color: 'white'}}><span style={{color: 'red'}}>{this.props.name}</span> </h1>
           <h1 style={{color: 'black', background:'aqua'}}>Total miles run</h1>
           <p style={{color: 'red', fontSize: 40}}>{(this.props.userData).toFixed(6)} <span style={{color: 'white', fontSize: 40}}>Miles</span></p>

@@ -30,7 +30,7 @@ class SignOut extends React.Component {
   render () {
     return (
       <div style={{float: 'right'}}>  
-				<h1 style={{ marginRight: '35'}}>Sign Out?</h1>
+				<h1 style={{ marginRight: '35px'}}>Sign Out?</h1>
         <button style={{backgroundColor: 'blue',
         color: 'white',
         padding: '10px 20px',
