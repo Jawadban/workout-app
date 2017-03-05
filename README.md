@@ -1093,7 +1093,7 @@ Then run the `firebase init` command from your project's root. You need to choos
     === Project Setup
 
     First, let's associate this project directory with a Firebase project.
-    You can create multiple project aliases by running firebase use --add,
+    You can create multiple project alises by running firebase use --add,
     but for now we'll just set up a default project.
 
     ? What Firebase project do you want to associate as default? Example app (example-app-fd690)
