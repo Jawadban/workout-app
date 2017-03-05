@@ -981,11 +981,11 @@ For an example, a simple button component could have following states:
 
 Usually, it’s hard to see these states without running a sample app or some examples.
 
-Create React App doesn't include any tools for this by default, but you can easily add [React Storybook](https://github.com/kadirahq/react-storybook) to your project. **It is a third-party tool that lets you develop components and see all thir sates in isolation from your app**.
+Create React App doesn't include any tools for this by default, but you can easily add [React Storybook](https://github.com/kadirahq/react-storybook) to your project. **It is a third-party tool that lets you develop components and see all their states in isolation from your app**.
 
 ![React Storybook Demo](http://i.imgur.com/7CIAWpB.gif)
 
-You can also deploy your Storybook as a static app. This way, everyone in your team can view and review different states of UI componets without starting a backend server or creating an account in your app.
+You can also deploy your Storybook as a static app. This way, everyone in your team can view and review different states of UI components without starting a backend server or creating an account in your app.
 
 **Here’s how to setup your app with Storybook:**
 
@@ -1087,13 +1087,13 @@ This will make sure that all the asset paths are relative to `index.html`. You w
 
 Install the Firebase CLI if you haven't already by running `npm install -g firebase-tools`. Sign up for a [Firebase account](https://console.firebase.google.com/) and create a new project. Run `firebase login` and login with your previous created Firebase account.
 
-Then run the `firebase init` command from your project's root. You need to choose the **Hosting: Configure and deploy Firebase Hosting sites** and choose the Firebase project you created in the previous step. You will need to agree with `database.rules.json` being creted, choose `build` as the public directory, and also agree to **Configure as a single-page app** by replying with `y`.
+Then run the `firebase init` command from your project's root. You need to choose the **Hosting: Configure and deploy Firebase Hosting sites** and choose the Firebase project you created in the previous step. You will need to agree with `database.rules.json` being created, choose `build` as the public directory, and also agree to **Configure as a single-page app** by replying with `y`.
 
 ```sh
     === Project Setup
 
     First, let's associate this project directory with a Firebase project.
-    You can create multiple project alises by running firebase use --add,
+    You can create multiple project aliases by running firebase use --add,
     but for now we'll just set up a default project.
 
     ? What Firebase project do you want to associate as default? Example app (example-app-fd690)
@@ -1104,7 +1104,7 @@ Then run the `firebase init` command from your project's root. You need to choos
     structured and when your data can be read from and written to.
 
     ? What file should be used for Database Rules? database.rules.json
-    ✔  Database Rules for example-app-fd690 have been down\loaded to database.rules.json.
+    ✔  Database Rules for example-app-fd690 have been downloaded to database.rules.json.
     Future modifications to database.rules.json will update Database Rules when you run
     firebase deploy.
 
