@@ -1104,7 +1104,7 @@ Then run the `firebase init` command from your project's root. You need to choos
     structured and when your data can be read from and written to.
 
     ? What file should be used for Database Rules? database.rules.json
-    ✔  Database Rules for example-app-fd690 have been downloaded to database.rules.json.
+    ✔  Database Rules for example-app-fd690 have been down\loaded to database.rules.json.
     Future modifications to database.rules.json will update Database Rules when you run
     firebase deploy.
 
