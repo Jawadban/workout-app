@@ -262,7 +262,6 @@ class App extends React.Component {
     this.dbtimerId = setInterval(() => this.writeUserData(this.state.coordPosNow), 1000)
     //this.getDbtimerId = setInterval(() => this.getUserCoord(), 1000)
     //this.getUserCoord ();
-    //
 
 
     var val = this;
