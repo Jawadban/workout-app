@@ -214,8 +214,8 @@ class App extends React.Component {
     // var starCountRef = firebase.database().ref('posts/' + postId + '/starCount');
     // starCountRef.on('value', function(snapshot) {
     //   updateCoord(postElement, snapshot.val());
-    // });
-
+    // }); 
+    //
   }
 
 
