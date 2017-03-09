@@ -215,7 +215,7 @@ class App extends React.Component {
     // starCountRef.on('value', function(snapshot) {
     //   updateCoord(postElement, snapshot.val());
     // }); 
-    //
+    
   }
 
 
