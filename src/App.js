@@ -215,7 +215,7 @@ class App extends React.Component {
     // starCountRef.on('value', function(snapshot) {
     //   updateCoord(postElement, snapshot.val());
     // }); 
-    
+
   }
 
 
@@ -255,6 +255,7 @@ class App extends React.Component {
 // return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
 //   var username = snapshot.val().username;
 // });
+
 
   componentDidMount() {
     this.timerId = setInterval(() => this.tick(), 3000)
