@@ -51,18 +51,6 @@ class LogIn extends React.Component {
         console.log(error);
       });
 
-
-    //this.saveUsername(val.state.userName)
-
-
-    //   firebase.database().ref('users/' + 'userId').set({
-    //     username: this.state.userName,
-    //     email: this.state.email,
-    //     //profile_picture : imageUrl
-    //   });
-    // }
-    // writeUserData.bind(this);
-
     event.preventDefault();
   }
 
