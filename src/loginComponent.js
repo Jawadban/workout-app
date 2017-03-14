@@ -24,11 +24,6 @@ class LogIn extends React.Component {
     this.setState({
       [name]: target.value
     });
-
-    var database = firebase.database()
-    var ref = database.ref('users')
-    ref.update({username: target.value});
-
   }
 
   handleSubmit(event) {
