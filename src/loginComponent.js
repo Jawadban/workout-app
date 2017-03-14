@@ -53,20 +53,22 @@ class LogIn extends React.Component {
     event.preventDefault();
   }
 
-
-  render() {
+  render () {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Name:
-          <input type="text" name='userName' value={this.state.userName} onChange={this.handleChange} />
-          Email:
-          <input type="email" name='email' value={this.state.email} onChange={this.handleChange} />
-          Password:
-          <input type="password" name='password' value={this.state.password} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="LogIn" />
-      </form>
+      <div>
+        <form onSubmit={this.handleSubmit} style={{float: 'left'}}>
+          <label>
+            Name:
+            <input type="text" name='userName' value={this.state.userName} onChange={this.handleChange} />
+            Email:
+            <input type="email" name='email' value={this.state.email} onChange={this.handleChange} />
+            Password:
+            <input type="password" name='password' value={this.state.password} onChange={this.handleChange} />
+          </label>
+          <input type="submit" value="SignUp" />
+        </form>
+          <button className='buttn' onClick={this.facebookLoginHandle} style={{float: 'left'}} >Login With Facebook</button>
+      </div>
     );
   }
 }
