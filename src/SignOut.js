@@ -1,15 +1,6 @@
 import React from 'react';
 import * as firebase from 'firebase';
 
-// // {{backgroundColor: 'blue',
-//         color: 'white',
-//         padding: '10px 20px',
-//         textAlign: 'center',
-//         textDecoration: 'none',
-//         display: 'inline-block',
-//         fontSize: '12px', 
-//         width: '12em',}}
-
 class SignOut extends React.Component {
   constructor (props) {
     super (props)
