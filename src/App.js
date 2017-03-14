@@ -15,19 +15,16 @@ import SignOut from './SignOut.js'
 import {getGeoLocation, coord, totalDistanceTravelled} from './GetUserCoords.js'
 //import FB from 'fb';
 
-// import getGeoLocation from './GetUserCoords.js'
-// import totalDistanceTravelled from './GetUserCoords.js'
-
 
 
 var config = {
-        apiKey: "AIzaSyDy9_RT6lPT92izSD2TbYQBgm5-W6Vhwlo",
-        authDomain: "workout-app-e4142.firebaseapp.com",
-        databaseURL: "https://workout-app-e4142.firebaseio.com",
-        storageBucket: "workout-app-e4142.appspot.com",
-        messagingSenderId: "1050126888209"
-      };
-      firebase.initializeApp(config);
+  apiKey: "AIzaSyDy9_RT6lPT92izSD2TbYQBgm5-W6Vhwlo",
+  authDomain: "workout-app-e4142.firebaseapp.com",
+  databaseURL: "https://workout-app-e4142.firebaseio.com",
+  storageBucket: "workout-app-e4142.appspot.com",
+  messagingSenderId: "1050126888209"
+};
+firebase.initializeApp(config);
 
 // const auth = firebase.auth();
 // auth.createUserWithEmailAndPassword('email@gmail.com', "password").catch(function (error){
@@ -58,61 +55,6 @@ var config = {
 // }
 
 //var user = '';
-
-
-// function initMap () {
-//   var map = new google.maps.Map(document.getElementById('map'), {
-//     zoom: 3,
-//     center: {lat: 0, lng: -180},
-//     mapTypeId: 'terrain'
-//   });
-//   //var flightPlanCoordinates = coord;
-//   var flightPlanCoordinates = [
-//     {lat: 37.772, lng: -122.214},
-//     {lat: 21.291, lng: -157.821},
-//     {lat: -18.142, lng: 178.431},
-//     {lat: -27.467, lng: 153.027}
-//   ];
-//   var flightPath = new google.maps.Polyline({
-//     path: flightPlanCoordinates,
-//     geodesic: true,
-//     strokeColor: '#FF0000',
-//     strokeOpacity: 1.0,
-//     strokeWeight: 2
-//   });
-
-//   flightPath.setMap(map);
-// }
-
-
-// class GoogleMap extends React.Component {
-//   constructor (props) {
-//     super (props)
-//   }
-
-//   render () {
-//     return (
-//         <script async defer
-//           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDij3hmLUQwFjcHinguhvLwujUGMyGaHgw&callback=initMap">
-//         </script>
-//     );
-//   }
-// }
-//       <img src ='https://maps.googleapis.com/maps/api/js?key=AIzaSyDij3hmLUQwFjcHinguhvLwujUGMyGaHgw&callback=initMap'>
-//       </img>
-
-
-
-// class DisplayTotalDistance extends React.Component {
-//   constructor () {
-//     super ()
-//   }
-//   render() {
-//     return (
-
-//     );
-//   }
-// }
 
 
 class App extends React.Component {
@@ -326,16 +268,3 @@ class App extends React.Component {
 }
 
 export default App;
-        // <form onSubmit={this.handleChange}>
-        //   <label>
-        //     <ul>  
-        //       <p>Please Enter Your Name and Press start to track your locations</p>
-        //      <input type="text" value={this.state.value} />
-        //       <input type="password" value={this.state.value} />
-        //       <input type="submit" value="Submit" />
-        //     </ul>
-        //   </label>
-        // </form>
-
-
-              // <h1 style={{color: 'white'}}><span style={{color: 'red'}}>Dani</span> in <span style={{color: 'pink'}}>Tokoyo</span></h1>
