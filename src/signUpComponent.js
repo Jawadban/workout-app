@@ -124,7 +124,7 @@ class SignUp extends React.Component {
           </label>
           <input type="submit" value="SignUp" />
         </form>
-          <button onClick={this.facebookLoginHandle} style={{float: 'left'}} >Login With Facebook</button>
+          <button className='buttn' onClick={this.facebookLoginHandle} style={{float: 'left'}} >Login With Facebook</button>
       </div>
     );
   }

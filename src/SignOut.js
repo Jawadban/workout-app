@@ -1,6 +1,14 @@
 import React from 'react';
 import * as firebase from 'firebase';
 
+// // {{backgroundColor: 'blue',
+//         color: 'white',
+//         padding: '10px 20px',
+//         textAlign: 'center',
+//         textDecoration: 'none',
+//         display: 'inline-block',
+//         fontSize: '12px', 
+//         width: '12em',}}
 
 class SignOut extends React.Component {
   constructor (props) {
@@ -31,14 +39,7 @@ class SignOut extends React.Component {
     return (
       <div style={{float: 'right'}}>  
 				<h1 style={{ marginRight: '35px'}}>Sign Out?</h1>
-        <button style={{backgroundColor: 'blue',
-        color: 'white',
-        padding: '10px 20px',
-        textAlign: 'center',
-        textDecoration: 'none',
-        display: 'inline-block',
-        fontSize: '12px', 
-        width: '12em',}} onClick={this.handleSignOut}>Sign Out</button>
+        <button className='buttn' onClick={this.handleSignOut}>Sign Out</button>
       </div>
     )
   }
