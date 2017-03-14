@@ -33,22 +33,35 @@ class LogIn extends React.Component {
 
   handleSubmit(event) {
     // alert('A name was submitted: ' + this.state.value);
+    const val = this
 
-    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
+    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
     // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
-      if (errorCode === 'auth/weak-password') {
+      if (errorCode == 'auth/weak-password') {
         alert('The password is too weak.');
       } else {
         alert(errorMessage);
       }
       console.log(error);
-    });
+      }).then(function(user) {
+        return user.updateProfile({displayName: val.state.userName});
+      }).catch(function(error) {
+        console.log(error);
+      });
 
-    var database = firebase.database()
-    var ref = database.ref('users')
-    ref.set({username: this.state.username},);
+
+    //this.saveUsername(val.state.userName)
+
+
+    //   firebase.database().ref('users/' + 'userId').set({
+    //     username: this.state.userName,
+    //     email: this.state.email,
+    //     //profile_picture : imageUrl
+    //   });
+    // }
+    // writeUserData.bind(this);
 
     event.preventDefault();
   }
