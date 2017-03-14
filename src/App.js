@@ -12,6 +12,7 @@ import * as firebase from 'firebase';
 import SignUp from './signUpComponent.js'
 import LogIn from './loginComponent.js'
 import SignOut from './SignOut.js'
+import getGeoLocation from './GetUserCoords.js'
 //import FB from 'fb';
 
 
