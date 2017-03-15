@@ -150,7 +150,6 @@ class App extends React.Component {
 
       firebase.database().ref('users/' + this.state.user.uid ).on('value', function(snapshot) {
         //console.log('snapshot:- ' + snapshot.val().coord );
-        //const anotherSelf = this;
         if (snapshot.val()) {  
           this.setState({
             dbCoordsNow: snapshot.val().coord,
@@ -176,8 +175,6 @@ class App extends React.Component {
     const condition = this.state.coords ? this.state.coords[this.state.coords.length -1] : 'false';
     const showNameIfLoggedin = this.state.user ? this.state.user: false;
 
-
-    //const start = this.state.shoulGetGeoData ? interval : 'false';
     return (
       <div>
         <ul>    
