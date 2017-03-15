@@ -8,6 +8,8 @@ export let config = {
 };
 // firebase.initializeApp(config);
 
+
+
 // const auth = firebase.auth();
 // auth.createUserWithEmailAndPassword('email@gmail.com', "password").catch(function (error){
 //   var errorCode = error.code;

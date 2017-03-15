@@ -15,6 +15,7 @@ import SignOut from './SignOut.js'
 import {getGeoLocation, coord, totalDistanceTravelled} from './GetUserCoords.js'
 //import FB from 'fb';
 import {config} from './FireBaseAutConfig.js'
+import AllUserData from './RenderUserData.js'
 
 
 firebase.initializeApp(config);
@@ -28,9 +29,10 @@ class App extends React.Component {
       password:'',
       shoulGetGeoData: false,
       coords: coord,
-      coordPosNow: '',
+      coordPosNow: coord,
       dbCoordsNow: '', 
       intervalId: null,
+      timerId: null,
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -68,6 +70,7 @@ class App extends React.Component {
     //   updateCoord(postElement, snapshot.val());
     // }); 
 
+    clearInterval(this.state.timerId);
   }
 
 
@@ -111,6 +114,12 @@ class App extends React.Component {
 
   componentDidMount() {
     this.timerId = setInterval(() => this.tick(), 3000)
+    // if (coord) {
+    //   this.setState({
+    //     coordPosNow: coord,
+    //   })
+    // }
+
     // this.dbtimerId = setInterval(() => this.writeUserData(this.state.coordPosNow), 1000)
     //this.getDbtimerId = setInterval(() => this.getUserCoord(), 1000)
     //this.getUserCoord ();
@@ -196,6 +205,7 @@ class App extends React.Component {
             </div> : false
           }
         </ul>
+
         {  this.state.coords.length > 0 && this.state.user ?
           <div style={{float: 'left'}}>
             <LogUserData userData={totalDistanceTravelled} name={showNameIfLoggedin.displayName} pic={showNameIfLoggedin.photoURL}/>
@@ -204,24 +214,27 @@ class App extends React.Component {
           </div>
           : null
         }
-        {  this.state.coords.length > 0 && this.state.user ?
-          <div style={{float: 'left'}}>           
-            <LogUserData userData={totalDistanceTravelled} name={'James'} />
-            <GoogleMapStatic coords={this.state.coords[this.state.coords.length -1]} />
-            <GoogleWholeRoute coords={this.state.coords} />
-          </div>
-          : null
+
+        {
+          this.state.coords.length > 0 && this.state.user ?
+            <AllUserData coords={this.state.coords} userData={totalDistanceTravelled}/> : false
         }
-        {  this.state.coords.length > 0 && this.state.user ?
+
+        {  
+          
+          this.state.coords.length > 0 && this.state.user ?
           <div style={{float: 'left'}}>
             <ul>
               <h1 style={{color: 'white'}}><span style={{color: 'red'}}>Dani</span> in <span style={{color: 'pink'}}>Tokoyo</span></h1>
             </ul>
-            <LogUserData userData={totalDistanceTravelled} name={this.state.value} />
-            <GoogleMapStatic coords={{Latitude :35.604456, Longitude: 139.7901791}} />
-            <GoogleWholeRoute coords={[{Latitude :35.604561, Longitude: 139.7901791}]} />
+            <AllUserData coords={[{Latitude :35.604561, Longitude: 139.7901791}]} userData={totalDistanceTravelled}/>
           </div>
           : null
+        }
+
+        {
+          this.state.coords.length > 0 && this.state.user ?
+            <AllUserData coords={this.state.coords} userData={totalDistanceTravelled}/> : false
         }
       </div>
     );
