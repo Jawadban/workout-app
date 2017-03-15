@@ -177,19 +177,6 @@ class App extends React.Component {
     const showNameIfLoggedin = this.state.user ? this.state.user: false;
 
 
-
-    // FB.setAccessToken('access_token');
-    // var body = 'My first post using facebook-node-sdk';
-    // FB.api('me/feed', 'post', { message: body }, function (res) {
-    //   if(!res || res.error) {
-    //     console.log(!res ? 'error occurred' : res.error);
-    //     return;
-    //   }
-    //   console.log('Post Id: ' + res.id);
-    // });
-
-
-
     //const start = this.state.shoulGetGeoData ? interval : 'false';
     return (
       <div>
@@ -221,7 +208,7 @@ class App extends React.Component {
         }
 
         {  
-          
+
           this.state.coords.length > 0 && this.state.user ?
           <div style={{float: 'left'}}>
             <ul>
