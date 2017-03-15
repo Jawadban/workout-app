@@ -14,48 +14,10 @@ import LogIn from './loginComponent.js'
 import SignOut from './SignOut.js'
 import {getGeoLocation, coord, totalDistanceTravelled} from './GetUserCoords.js'
 //import FB from 'fb';
+import {config} from './FireBaseAutConfig.js'
 
 
-
-var config = {
-  apiKey: "AIzaSyDy9_RT6lPT92izSD2TbYQBgm5-W6Vhwlo",
-  authDomain: "workout-app-e4142.firebaseapp.com",
-  databaseURL: "https://workout-app-e4142.firebaseio.com",
-  storageBucket: "workout-app-e4142.appspot.com",
-  messagingSenderId: "1050126888209"
-};
 firebase.initializeApp(config);
-
-// const auth = firebase.auth();
-// auth.createUserWithEmailAndPassword('email@gmail.com', "password").catch(function (error){
-//   var errorCode = error.code;
-//   var erorMesage = error.message;
-// });
-
-
-// var user = firebase.auth().currentUser;
-
-// if (user) {
-//   console.log('this is your user: *****>>>>>': user)
-// } else {
-//   console.log('no user found')
-// }
-
-
-// var database = firebase.database()
-// var ref = database.ref('users/' + 'userId')
-// ref.set({username: 'Bangash'});
-
-// function writeUserData(userId, name, email, imageUrl) {
-//   firebase.database().ref('users/' + 'userId').set({
-//     username: 'name',
-//     email: 'email',
-//     profile_picture : imageUrl
-//   });
-// }
-
-//var user = '';
-
 
 class App extends React.Component {
   constructor (props) {
@@ -95,10 +57,8 @@ class App extends React.Component {
         intervalId: setInterval(
           function () {
             getGeoLocation ()
-            console.log(coord)
-
+            console.log(coord, 'These are the user coords')
           }
-
           , 3000)
       });
     }
@@ -151,10 +111,12 @@ class App extends React.Component {
 
   componentDidMount() {
     this.timerId = setInterval(() => this.tick(), 3000)
-    this.dbtimerId = setInterval(() => this.writeUserData(this.state.coordPosNow), 1000)
+    // this.dbtimerId = setInterval(() => this.writeUserData(this.state.coordPosNow), 1000)
     //this.getDbtimerId = setInterval(() => this.getUserCoord(), 1000)
     //this.getUserCoord ();
-
+    if (this.user) {
+      () => this.writeUserData(this.state.coordPosNow)
+    }
 
     var val = this;
     firebase.auth().onAuthStateChanged(function(user) {
