@@ -27,7 +27,7 @@ export default class AllUserData extends React.Component{
 	render () {
 		return (
 			<div style={{float: 'left'}}>           
-        <LogUserData userData={this.props.userData} name={'James'} />
+        <LogUserData userData={this.props.userData} name={this.props.name} pic={this.props.pic}/>
         <GoogleMapStatic coords={this.props.coords[this.props.coords.length -1]} />
         <GoogleWholeRoute coords={this.props.coords} />
       </div>

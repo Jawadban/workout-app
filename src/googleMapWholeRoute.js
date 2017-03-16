@@ -23,7 +23,7 @@ class GoogleWholeRoute extends React.Component {
 	    	coordArr: newCoords.join('|'),
 	    	showMap: !this.state.showMap,
 	    });
-	    console.log('Iv got World Map: '+ newCoords.join('|'))
+	    // console.log('Iv got World Map: '+ newCoords.join('|'))
     }
   }
 

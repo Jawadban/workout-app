@@ -13,7 +13,7 @@ import SignUp from './signUpComponent.js'
 import LogIn from './loginComponent.js'
 import SignOut from './SignOut.js'
 import {getGeoLocation, coord, totalDistanceTravelled} from './GetUserCoords.js'
-//import FB from 'fb';
+import FB from 'fb';
 import {config} from './FireBaseAutConfig.js'
 import AllUserData from './RenderUserData.js'
 
@@ -65,6 +65,40 @@ class App extends React.Component {
       });
     }
 
+    // console.log(FB.getLoginStatus(), 'YYYYYYYY')
+
+    FB.getLoginStatus(function(response) {
+      if (response.status === 'connected') {
+        // the user is logged in and has authenticated your
+        // app, and response.authResponse supplies
+        // the user's ID, a valid access token, a signed
+        // request, and the time the access token 
+        // and signed request each expire
+        var uid = response.authResponse.userID;
+        var accessToken = response.authResponse.accessToken;
+        console.log(accessToken, 'YYYYYYYYY')
+      } else if (response.status === 'not_authorized') {
+        // the user is logged in to Facebook, 
+        // but has not authenticated your app
+      } else {
+        // the user isn't logged in to Facebook.
+      }
+    });
+
+    // FB.setAccessToken('access_token');
+    // var body = 'My first post using facebook-node-sdk';
+    // FB.api('me/feed', 'post', { message: body }, function (res) {
+    //   if(!res || res.error) {
+    //     console.log(!res ? 'error occurred' : res.error);
+    //     return;
+    //   }
+    //   console.log('Post Id: ' + res.id);
+    // });
+
+// FB.api('/me', {fields: 'last_name'}, function(response) {
+//   console.log(response);
+// });
+
     // var starCountRef = firebase.database().ref('posts/' + postId + '/starCount');
     // starCountRef.on('value', function(snapshot) {
     //   updateCoord(postElement, snapshot.val());
@@ -114,15 +148,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.timerId = setInterval(() => this.tick(), 3000)
-    // if (coord) {
-    //   this.setState({
-    //     coordPosNow: coord,
-    //   })
-    // }
-
-    // this.dbtimerId = setInterval(() => this.writeUserData(this.state.coordPosNow), 1000)
-    //this.getDbtimerId = setInterval(() => this.getUserCoord(), 1000)
-    //this.getUserCoord ();
+    
     if (this.user) {
       () => this.writeUserData(this.state.coordPosNow)
     }
@@ -148,15 +174,16 @@ class App extends React.Component {
       }
     });
 
-      firebase.database().ref('users/' + this.state.user.uid ).on('value', function(snapshot) {
-        //console.log('snapshot:- ' + snapshot.val().coord );
-        if (snapshot.val()) {  
-          this.setState({
-            dbCoordsNow: snapshot.val().coord,
-          });
-        }
-        console.log(this.state.dbCoordsNow, '>>>>>>>>')
-      });
+
+    firebase.database().ref('users/' + this.state.user.uid ).on('value', function(snapshot) {
+      //console.log('snapshot:- ' + snapshot.val().coord );
+      if (snapshot.val()) {  
+        this.setState({
+          dbCoordsNow: snapshot.val().coord,
+        });
+      }
+      console.log(this.state.dbCoordsNow, '>>>>>>>>')
+    });
 
 
 //     var database = firebase.database()
@@ -172,8 +199,9 @@ class App extends React.Component {
 
   render () {    
     //console.log('This is the user {{{{{{{{{{', this.state.user)
-    const condition = this.state.coords ? this.state.coords[this.state.coords.length -1] : 'false';
+    // const condition = this.state.coords ? this.state.coords[this.state.coords.length -1] : 'false';
     const showNameIfLoggedin = this.state.user ? this.state.user: false;
+    // console.log(this.state.user, 'THIS IS USER')
 
     return (
       <div>
@@ -189,23 +217,16 @@ class App extends React.Component {
             </div> : false
           }
         </ul>
-
-        {  this.state.coords.length > 0 && this.state.user ?
-          <div style={{float: 'left'}}>
-            <LogUserData userData={totalDistanceTravelled} name={showNameIfLoggedin.displayName} pic={showNameIfLoggedin.photoURL}/>
-            <GoogleMapStatic coords={this.state.coords[this.state.coords.length -1]} />
-            <GoogleWholeRoute coords={this.state.coords} />
-          </div>
-          : null
+        
+        {
+          this.state.coords.length > 0 && this.state.user ?
+            <AllUserData coords={this.state.coords} userData={totalDistanceTravelled} name={showNameIfLoggedin.displayName} pic={showNameIfLoggedin.photoURL}/> : false
         }
-
         {
           this.state.coords.length > 0 && this.state.user ?
             <AllUserData coords={this.state.coords} userData={totalDistanceTravelled}/> : false
         }
-
-        {  
-
+        { 
           this.state.coords.length > 0 && this.state.user ?
           <div style={{float: 'left'}}>
             <ul>
@@ -214,11 +235,6 @@ class App extends React.Component {
             <AllUserData coords={[{Latitude :35.604561, Longitude: 139.7901791}]} userData={totalDistanceTravelled}/>
           </div>
           : null
-        }
-
-        {
-          this.state.coords.length > 0 && this.state.user ?
-            <AllUserData coords={this.state.coords} userData={totalDistanceTravelled}/> : false
         }
       </div>
     );

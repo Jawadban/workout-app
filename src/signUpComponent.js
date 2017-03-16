@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import * as firebase from 'firebase';
 
 class SignUp extends React.Component {
@@ -22,16 +22,14 @@ class SignUp extends React.Component {
   //     });
   // }
 
-  facebookLoginHandle() {
+  facebookLoginHandle(event) {
     var provider = new firebase.auth.FacebookAuthProvider();
     firebase.auth().signInWithRedirect(provider).then(function(result) {
       // This gives you a Facebook Access Token. You can use it to access the Facebook API.
       var token = result.credential.accessToken;
       // The signed-in user info.
-      
       var user = result.user;
-      // ...
-      console.log('FacebOOOOOOOOOOk user: ', user)
+      console.log('FacebOOOOOOOOOOk user: ', result)
     }).catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;
@@ -42,6 +40,9 @@ class SignUp extends React.Component {
       var credential = error.credential;
       // ...
     });
+
+    event.preventDefault()
+
   }
 
   handleChange(event) {
@@ -63,7 +64,7 @@ class SignUp extends React.Component {
     // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
-      if (errorCode == 'auth/weak-password') {
+      if (errorCode === 'auth/weak-password') {
         alert('The password is too weak.');
       } else {
         alert(errorMessage);
