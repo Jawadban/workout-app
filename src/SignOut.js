@@ -1,5 +1,9 @@
 import React from 'react';
 import * as firebase from 'firebase';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
+
+
 
 class SignOut extends React.Component {
   constructor (props) {
@@ -30,7 +34,9 @@ class SignOut extends React.Component {
     return (
       <div style={{float: 'right'}}>  
 				<h1 style={{ marginRight: '35px'}}>Sign Out?</h1>
-        <button className='buttn' onClick={this.handleSignOut}>Sign Out</button>
+        <MuiThemeProvider>
+          <RaisedButton label="Sign Out" primary={true} style={true} onClick={this.handleSignOut}/>
+        </MuiThemeProvider>
       </div>
     )
   }

@@ -34,7 +34,7 @@ class GoogleWholeRoute extends React.Component {
     	<div style={{float: 'left'}}>
         <ul>  
           <h1 style={{color: 'black', background:'aqua'}}>Your whole Route until now:</h1>
-      	  <img src={mapApiCall}/> 
+      	  <img src={mapApiCall} style={{ boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 red'}}/> 
         </ul>  
       </div>
     );

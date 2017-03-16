@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './App.css';
 import GoogleMapStatic from './googleStaticMap.js';
 import LogUserData from './LogUserData.js'
-import { Router, Route, Link } from 'react-router'
+import { Router, Route, Link, hashHistory } from 'react-router'
 import GoogleWholeRoute from './googleMapWholeRoute.js'
 //import { withGoogleMap } from "react-google-maps";
 //import Map from 'google-maps-react'
@@ -16,6 +16,9 @@ import {getGeoLocation, coord, totalDistanceTravelled} from './GetUserCoords.js'
 import FB from 'fb';
 import {config} from './FireBaseAutConfig.js'
 import AllUserData from './RenderUserData.js'
+import StartRunning from './StartRunning.js'
+import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
 firebase.initializeApp(config);
@@ -65,45 +68,6 @@ class App extends React.Component {
       });
     }
 
-    // console.log(FB.getLoginStatus(), 'YYYYYYYY')
-
-    FB.getLoginStatus(function(response) {
-      if (response.status === 'connected') {
-        // the user is logged in and has authenticated your
-        // app, and response.authResponse supplies
-        // the user's ID, a valid access token, a signed
-        // request, and the time the access token 
-        // and signed request each expire
-        var uid = response.authResponse.userID;
-        var accessToken = response.authResponse.accessToken;
-        console.log(accessToken, 'YYYYYYYYY')
-      } else if (response.status === 'not_authorized') {
-        // the user is logged in to Facebook, 
-        // but has not authenticated your app
-      } else {
-        // the user isn't logged in to Facebook.
-      }
-    });
-
-    // FB.setAccessToken('access_token');
-    // var body = 'My first post using facebook-node-sdk';
-    // FB.api('me/feed', 'post', { message: body }, function (res) {
-    //   if(!res || res.error) {
-    //     console.log(!res ? 'error occurred' : res.error);
-    //     return;
-    //   }
-    //   console.log('Post Id: ' + res.id);
-    // });
-
-// FB.api('/me', {fields: 'last_name'}, function(response) {
-//   console.log(response);
-// });
-
-    // var starCountRef = firebase.database().ref('posts/' + postId + '/starCount');
-    // starCountRef.on('value', function(snapshot) {
-    //   updateCoord(postElement, snapshot.val());
-    // }); 
-
     clearInterval(this.state.timerId);
   }
 
@@ -125,9 +89,7 @@ class App extends React.Component {
   getUserCoord () {
     console.log('<<<<<<<<<<<<<<<<<<<')
     const thisVal = this;
-    // (function () {
-    //   console.log(self)
-    // })();
+
     firebase.database().ref('users/' + this.state.user.uid ).on('value', function(snapshot) {
       //console.log('snapshot:- ' + snapshot.val().coord );
       //const anotherSelf = this;
@@ -140,15 +102,9 @@ class App extends React.Component {
     });
   }
 
-//   var userId = firebase.auth().currentUser.uid;
-// return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
-//   var username = snapshot.val().username;
-// });
-
-
   componentDidMount() {
     this.timerId = setInterval(() => this.tick(), 3000)
-    
+
     if (this.user) {
       () => this.writeUserData(this.state.coordPosNow)
     }
@@ -174,7 +130,7 @@ class App extends React.Component {
       }
     });
 
-
+    this.state.user ?
     firebase.database().ref('users/' + this.state.user.uid ).on('value', function(snapshot) {
       //console.log('snapshot:- ' + snapshot.val().coord );
       if (snapshot.val()) {  
@@ -183,8 +139,8 @@ class App extends React.Component {
         });
       }
       console.log(this.state.dbCoordsNow, '>>>>>>>>')
-    });
-
+    })
+    : null
 
 //     var database = firebase.database()
 // var ref = database.ref('users')
@@ -198,7 +154,6 @@ class App extends React.Component {
   }
 
   render () {    
-    //console.log('This is the user {{{{{{{{{{', this.state.user)
     // const condition = this.state.coords ? this.state.coords[this.state.coords.length -1] : 'false';
     const showNameIfLoggedin = this.state.user ? this.state.user: false;
     // console.log(this.state.user, 'THIS IS USER')
@@ -212,12 +167,12 @@ class App extends React.Component {
           }
           { (this.state.user) ? 
             <div style={{float: 'left'}}>
-              <h1>Start Running?</h1>
-              <button className='buttn' onClick={this.handleSubmit}>Start Running</button>
+              <MuiThemeProvider>
+                <RaisedButton label="Start Running" primary={true} style={true} onClick={this.handleSubmit}/>
+              </MuiThemeProvider>
             </div> : false
           }
         </ul>
-        
         {
           this.state.coords.length > 0 && this.state.user ?
             <AllUserData coords={this.state.coords} userData={totalDistanceTravelled} name={showNameIfLoggedin.displayName} pic={showNameIfLoggedin.photoURL}/> : false
@@ -243,3 +198,10 @@ class App extends React.Component {
 }
 
 export default App;
+
+
+              // <button className='buttn' onClick={this.handleSubmit}>Start Running</button>
+
+          // { (this.state.user) ? 
+          //   <StartRunning /> : false
+          // }

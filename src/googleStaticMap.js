@@ -33,7 +33,7 @@ class GoogleMapStatic extends React.Component {
     	<div style={{float: 'left'}}>
   			<ul>	
     			<h1 style={{color: 'black', background:'aqua'}}>Your current location:</h1>
-      		<img src={mapVar}/> 
+      		<img src={mapVar} style={{ boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 blue'}}/> 
   			</ul>
       </div>
     );
