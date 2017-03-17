@@ -1,7 +1,7 @@
-
-export const coord = [];
+import {coord} from './App.js' 
 export let totalDistanceTravelled = 0;
 
+//This Function gets the user location coordinates from their browser and push them into coord array
 export const getGeoLocation = function () {
   var options = {
     enableHighAccuracy: true,
@@ -26,13 +26,19 @@ export const getGeoLocation = function () {
   navigator.geolocation.getCurrentPosition(success, error, options);
 
   if (coord[coord.length -2] && coord[coord.length -1]) {
-    var distanceBetweenLastTwoPoints = distance(/*37.7632954, -122.4857721,*/ coord[coord.length -2].Latitude, coord[coord.length -2].Longitude, coord[coord.length -1].Latitude, coord[coord.length -1].Longitude)
-    totalDistanceTravelled += (distanceBetweenLastTwoPoints);
+    var distanceBetweenLastTwoPoints = distance(/*37.7632954, -122.4857721,*/ coord[coord.length -3].Latitude, coord[coord.length -3].Longitude, coord[coord.length -1].Latitude, coord[coord.length -1].Longitude)
+    
+    // 1 step is .0005 of a mile so only add if last two coordinates are 1 step away
+    if (distanceBetweenLastTwoPoints > 0.0005) {
+      totalDistanceTravelled += (distanceBetweenLastTwoPoints);
+    }
     //console.log(totalDistanceTravelled);
     console.log(distanceBetweenLastTwoPoints);
+    // totalDistanceTravelled = totalDistanceTravelled.toFixed(4)
   }
 }
 
+// This function calculates the distance between the last two coordinates
 function distance(lat1,lon1,lat2,lon2) {
   var R = 6371; // miles (change this constant to get miles)
   var dLat = (lat2-lat1) * Math.PI / 180;
@@ -43,7 +49,7 @@ function distance(lat1,lon1,lat2,lon2) {
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
   var d = R * c;
   //if (d>1) {
-    return /*Math.round(d)*/ d/1.6;
+    return /*Math.round(d)*/ (d/1.6).toFixed(4);
   //} else if (d<=1) return Math.round(d*1000)+" meters";
   //var milesDistance = d/1.6;
   //return d;

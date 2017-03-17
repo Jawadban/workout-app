@@ -12,7 +12,7 @@ import * as firebase from 'firebase';
 import SignUp from './signUpComponent.js'
 import LogIn from './loginComponent.js'
 import SignOut from './SignOut.js'
-import {getGeoLocation, coord, totalDistanceTravelled} from './GetUserCoords.js'
+import {getGeoLocation,  totalDistanceTravelled} from './GetUserCoords.js'
 import FB from 'fb';
 import {config} from './FireBaseAutConfig.js'
 import AllUserData from './RenderUserData.js'
@@ -21,6 +21,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
+
+
+export var coord = [];
 
 firebase.initializeApp(config);
 
@@ -32,7 +35,7 @@ class App extends React.Component {
       userName:'',
       password:'',
       shoulGetGeoData: false,
-      coords: coord,
+      coords: [],
       coordPosNow: coord,
       dbCoordsNow: '', 
       intervalId: null,
@@ -51,6 +54,7 @@ class App extends React.Component {
 
 
   handleSubmit (event) {
+    const thisInst = this;
 
     event.preventDefault()
 
@@ -59,7 +63,6 @@ class App extends React.Component {
     this.setState({
       timeStamp: timeStamp,
     })
-    
     console.log(this.state.timeStamp)
 
     if(this.state.intervalId) {
@@ -73,13 +76,18 @@ class App extends React.Component {
           function () {
             getGeoLocation ()
             console.log(coord, 'These are the user coords')
+            console.log(thisInst.state.coords, 'SSSETTTT STTATE COORDS')
+
           }
-          , 3000)
+          , 1000)
       });
     }
     
+    // Time Stamping for database 'coord' insertion purposes
     var timeStampForThisRunningInstance = this.state.timeStamp
 
+    // This setInterval is for updating state 'coords' and to update firebase database with 'coord' 
+    // Which are time stamped.
     if(this.state.timerId) {
       clearInterval(this.state.timerId);
       this.setState({
@@ -89,11 +97,17 @@ class App extends React.Component {
       this.setState({
         timerId: setInterval(
           () => {
+            // Here we are linking our firebase database with the user location coordinates 'coord'
             var database = firebase.database()
             var ref = database.ref('users/' + this.state.user.uid + '/run/' + timeStampForThisRunningInstance )
             ref.set({coord: coord});
+            // Here the 'coords' that we are feeding to our render 
+            // screens are set to 'coord' from the getGeoLocation function
+            thisInst.setState({
+              coords: coord,
+            })
           }
-          , 1000)
+          , 500)
       });
     }
 
@@ -227,7 +241,7 @@ class App extends React.Component {
             <Card>
               <CardHeader
                 title={showNameIfLoggedin.displayName}
-                subtitle={totalDistanceTravelled.toFixed(4) + " Miles Run "}
+                subtitle={totalDistanceTravelled + " Miles Run "}
                 avatar={showNameIfLoggedin.photoURL}
               />     
                 <RaisedButton label="Start Running" primary={true} style={true} onClick={this.handleSubmit}></RaisedButton>
@@ -239,7 +253,7 @@ class App extends React.Component {
           }
         </ul>
         {
-          this.state.coords.length > 0 && this.state.user ?
+          this.state.coords[0] && this.state.user ?
             <AllUserData coords={this.state.coords} userData={totalDistanceTravelled} 
             name={showNameIfLoggedin.displayName} pic={showNameIfLoggedin.photoURL}/> : false
         }
