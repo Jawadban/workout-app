@@ -1,4 +1,7 @@
 import React from 'react';
+import Paper from 'material-ui/Paper';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 
 //const React = require('react')
 //const coords = '37.7837403,-122.40905780000001';
@@ -32,8 +35,12 @@ class GoogleMapStatic extends React.Component {
     return (
     	<div style={{float: 'left'}}>
   			<ul>	
-    			<h1 style={{color: 'black', background:'aqua'}}>Your current location:</h1>
-      		<img src={mapVar} style={{ boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 blue'}}/> 
+    			<h1 style={{color: 'white'}}>Your Location</h1>
+  				<MuiThemeProvider>
+            <Paper zDepth={5} >
+    	  			<img src={mapVar} /> 
+            </Paper >
+      		</MuiThemeProvider>
   			</ul>
       </div>
     );
@@ -43,3 +50,4 @@ class GoogleMapStatic extends React.Component {
 export default GoogleMapStatic;
 
 //'https://maps.googleapis.com/maps/api/staticmap?markers=color:red|'+${coords}+'&zoom=12&size=400x400&key=AIzaSyDij3hmLUQwFjcHinguhvLwujUGMyGaHgw'
+      		// <img src={mapVar} style={{ boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 #00bcd4'}}/> 

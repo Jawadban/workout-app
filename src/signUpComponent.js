@@ -4,6 +4,9 @@ import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
+
 const style = {
   marginLeft: 20,
 };
@@ -133,23 +136,52 @@ class SignUp extends React.Component {
 
 
     return (
+
       <div>
-       
         <form onSubmit={this.handleSubmit} style={{float: 'left'}}>
-          <label>
-            Name:
-            <input type="text" name='userName' value={this.state.userName} onChange={this.handleChange} />
-            Email:
-            <input type="email" name='email' value={this.state.email} onChange={this.handleChange} />
-            Password:
-            <input type="password" name='password' value={this.state.password} onChange={this.handleChange} />
-          </label>
-          <input type="submit" value="SignUp" />
+           <MuiThemeProvider>
+            <Paper zDepth={2}>
+              <TextField hintText="First name" name='userName' style={style} 
+              value={this.state.userName} 
+              onChange={this.handleChange} 
+              underlineShow={false} 
+              />
+
+              <Divider />
+
+              <TextField hintText="Email address" type="email" name='email' 
+              value={this.state.email} 
+              onChange={this.handleChange} 
+              style={style} underlineShow={false} 
+              />
+
+              <Divider />
+
+              <TextField hintText="password" type="password" name='password' value={this.state.password} onChange={this.handleChange} style={style} underlineShow={false} />
+              <Divider />
+            </Paper>
+          </MuiThemeProvider>
+          <MuiThemeProvider>
+            <RaisedButton label="SignUp" value="SignUp" type="submit" primary={true} style={true}/>
+          </MuiThemeProvider>
+          <MuiThemeProvider>
+            <RaisedButton label="Login With Facebook" onClick={this.facebookLoginHandle} primary={true} style={true}/>
+          </MuiThemeProvider>
         </form>
-          <button onClick={this.facebookLoginHandle} style={{float: 'left'}} >Login With Facebook</button>
       </div>
     );
   }
 }
 
 export default SignUp;
+          // <button onClick={this.facebookLoginHandle} style={{float: 'left'}} >Login With Facebook</button>
+          // <input type="submit" value="SignUp" />
+
+          // <label>
+          //   Name:
+          //   <input type="text" name='userName' value={this.state.userName} onChange={this.handleChange} />
+          //   Email:
+          //   <input type="email" name='email' value={this.state.email} onChange={this.handleChange} />
+          //   Password:
+          //   <input type="password" name='password' value={this.state.password} onChange={this.handleChange} />
+          // </label>

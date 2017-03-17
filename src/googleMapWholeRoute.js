@@ -1,4 +1,7 @@
 import React from 'react';
+import Paper from 'material-ui/Paper';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 
 //const React = require('react')
 //const coords = '37.7837403,-122.40905780000001';
@@ -33,8 +36,13 @@ class GoogleWholeRoute extends React.Component {
     return (
     	<div style={{float: 'left'}}>
         <ul>  
-          <h1 style={{color: 'black', background:'aqua'}}>Your whole Route until now:</h1>
-      	  <img src={mapApiCall} style={{ boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 red'}}/> 
+          <h1 style={{color: 'white'}}>Your whole Route</h1>
+          <MuiThemeProvider>
+              <Paper zDepth={5} >
+      	  <img src={mapApiCall} /> 
+              </Paper >
+        </MuiThemeProvider>
+
         </ul>  
       </div>
     );
@@ -42,3 +50,5 @@ class GoogleWholeRoute extends React.Component {
 }
 
 export default GoogleWholeRoute;
+
+// style={{ boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 #00bcd4'}}

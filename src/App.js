@@ -19,6 +19,7 @@ import AllUserData from './RenderUserData.js'
 import StartRunning from './StartRunning.js'
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
 
 firebase.initializeApp(config);
@@ -36,6 +37,7 @@ class App extends React.Component {
       dbCoordsNow: '', 
       intervalId: null,
       timerId: null,
+      timeStamp: new Date(),
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -52,6 +54,14 @@ class App extends React.Component {
 
     event.preventDefault()
 
+    var timeStamp = new Date()
+    // Math.floor(Date.now() / 1000)
+    this.setState({
+      timeStamp: timeStamp,
+    })
+    
+    console.log(this.state.timeStamp)
+
     if(this.state.intervalId) {
       clearInterval(this.state.intervalId);
       this.setState({
@@ -67,6 +77,26 @@ class App extends React.Component {
           , 3000)
       });
     }
+    
+    var timeStampForThisRunningInstance = this.state.timeStamp
+
+    if(this.state.timerId) {
+      clearInterval(this.state.timerId);
+      this.setState({
+        timerId: null
+      });
+    } else {
+      this.setState({
+        timerId: setInterval(
+          () => {
+            var database = firebase.database()
+            var ref = database.ref('users/' + this.state.user.uid + '/run/' + timeStampForThisRunningInstance )
+            ref.set({coord: coord});
+          }
+          , 1000)
+      });
+    }
+
 
     clearInterval(this.state.timerId);
   }
@@ -105,9 +135,35 @@ class App extends React.Component {
   componentDidMount() {
     this.timerId = setInterval(() => this.tick(), 3000)
 
-    if (this.user) {
-      () => this.writeUserData(this.state.coordPosNow)
-    }
+    // this.writeUserData(this.state.coordPosNow)
+
+    // if(this.state.user){  
+    //   firebase.database().ref('users/' + this.state.user.uid).set({
+    //     coord: coord
+    //   });
+    // }
+
+
+    // setInterval( () => {
+
+    //   var database = firebase.database()
+    //   var ref = database.ref('users/' + this.state.user.uid + '/run' )
+    //   ref.set({coord: coord});
+    // }, 1000
+    // )
+
+
+
+    // if (this.state.user && coord) {
+    // }
+
+// function writeUserData(userId, name, email, imageUrl) {
+//   firebase.database().ref('users/' + 'userId').set({
+//     username: 'name',
+//     email: 'email',
+//     profile_picture : imageUrl
+//   });
+// }
 
     var val = this;
     firebase.auth().onAuthStateChanged(function(user) {
@@ -166,16 +222,26 @@ class App extends React.Component {
             //<h1>You are signed in</h1>  
           }
           { (this.state.user) ? 
-            <div style={{float: 'left'}}>
-              <MuiThemeProvider>
-                <RaisedButton label="Start Running" primary={true} style={true} onClick={this.handleSubmit}/>
+            <div style={{float: 'left', marginTop: '25px'}}>
+            <MuiThemeProvider>
+            <Card>
+              <CardHeader
+                title={showNameIfLoggedin.displayName}
+                subtitle={totalDistanceTravelled.toFixed(4) + " Miles Run "}
+                avatar={showNameIfLoggedin.photoURL}
+              />     
+                <RaisedButton label="Start Running" primary={true} style={true} onClick={this.handleSubmit}></RaisedButton>
+                <RaisedButton label="Push Ups /\ \//\//\ /\" primary={true} style={true} onClick={this.handleSubmit} ><Link to="/PushUps"/></RaisedButton>
+
+            </Card> 
               </MuiThemeProvider>
             </div> : false
           }
         </ul>
         {
           this.state.coords.length > 0 && this.state.user ?
-            <AllUserData coords={this.state.coords} userData={totalDistanceTravelled} name={showNameIfLoggedin.displayName} pic={showNameIfLoggedin.photoURL}/> : false
+            <AllUserData coords={this.state.coords} userData={totalDistanceTravelled} 
+            name={showNameIfLoggedin.displayName} pic={showNameIfLoggedin.photoURL}/> : false
         }
         {
           this.state.coords.length > 0 && this.state.user ?
@@ -205,3 +271,6 @@ export default App;
           // { (this.state.user) ? 
           //   <StartRunning /> : false
           // }
+                //<ul role="nav">
+               //   <li><Link to="/PushUps">PushUps</Link></li>
+                //</ul>
