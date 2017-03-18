@@ -76,7 +76,7 @@ class App extends React.Component {
           function () {
             getGeoLocation ()
             console.log(coord, 'These are the user coords')
-            console.log(thisInst.state.coords, 'SSSETTTT STTATE COORDS')
+            //console.log(thisInst.state.coords, 'SSSETTTT STTATE COORDS')
           }
           , 1000)
       });
