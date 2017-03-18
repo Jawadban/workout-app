@@ -7,6 +7,11 @@ import TextField from 'material-ui/TextField';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 
+
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
+
 const style = {
   marginLeft: 20,
 };
@@ -50,6 +55,10 @@ class SignUp extends React.Component {
       var credential = error.credential;
       // ...
     });
+
+    // firebase.database().ref('users/' + this.state.user.uid + '/userDetails').set({
+    //   userName: coord
+    // });
 
     event.preventDefault()
 
@@ -162,10 +171,10 @@ class SignUp extends React.Component {
             </Paper>
           </MuiThemeProvider>
           <MuiThemeProvider>
-            <RaisedButton label="SignUp" value="SignUp" type="submit" primary={true} style={true}/>
+            <RaisedButton label="SignUp" value="SignUp" type="submit" primary={true} />
           </MuiThemeProvider>
           <MuiThemeProvider>
-            <RaisedButton label="Login With Facebook" onClick={this.facebookLoginHandle} primary={true} style={true}/>
+            <RaisedButton label="Login With Facebook" onClick={this.facebookLoginHandle} primary={true} />
           </MuiThemeProvider>
         </form>
       </div>

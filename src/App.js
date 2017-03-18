@@ -32,8 +32,8 @@ class App extends React.Component {
     super (props)
     this.state = {
       user: null,
-      userName:'',
-      password:'',
+      // userName:'',
+      // password:'',
       shoulGetGeoData: false,
       coords: [],
       coordPosNow: coord,
@@ -77,7 +77,6 @@ class App extends React.Component {
             getGeoLocation ()
             console.log(coord, 'These are the user coords')
             console.log(thisInst.state.coords, 'SSSETTTT STTATE COORDS')
-
           }
           , 1000)
       });
@@ -100,7 +99,16 @@ class App extends React.Component {
             // Here we are linking our firebase database with the user location coordinates 'coord'
             var database = firebase.database()
             var ref = database.ref('users/' + this.state.user.uid + '/run/' + timeStampForThisRunningInstance )
-            ref.set({coord: coord});
+            ref.set({
+              coord: coord,
+            });
+
+            var userDetailsInsersion = database.ref('users/' + this.state.user.uid + '/userDetails')
+            userDetailsInsersion.set({
+              userName: thisInst.state.user.displayName,
+              userPic: thisInst.state.user.photoURL,
+            });
+
             // Here the 'coords' that we are feeding to our render 
             // screens are set to 'coord' from the getGeoLocation function
             thisInst.setState({
@@ -123,14 +131,14 @@ class App extends React.Component {
   }
 
 
-  writeUserData (coordArra) {
-    firebase.database().ref('users/' + this.state.user.uid).set({
+  writeUserInfoDetails (coordArra) {
+    firebase.database().ref('users/' + this.state.user.uid + '/userDetails').set({
       coord: coord
     });
   }
 
 
-  getUserCoord () {
+  getUserInfoDetails () {
     console.log('<<<<<<<<<<<<<<<<<<<')
     const thisVal = this;
 
@@ -190,7 +198,7 @@ class App extends React.Component {
           })
         })();
         
-        console.log(this.state.user)
+        // console.log(this.state.user)
       } else {
         // No user is signed in.
         console.log('===========') 
@@ -244,8 +252,8 @@ class App extends React.Component {
                 subtitle={totalDistanceTravelled + " Miles Run "}
                 avatar={showNameIfLoggedin.photoURL}
               />     
-                <RaisedButton label="Start Running" primary={true} style={true} onClick={this.handleSubmit}></RaisedButton>
-                <RaisedButton label="Push Ups /\ \//\//\ /\" primary={true} style={true} onClick={this.handleSubmit} ><Link to="/PushUps"/></RaisedButton>
+                <RaisedButton label="Start Running" primary={true} onClick={this.handleSubmit}></RaisedButton>
+                <RaisedButton label="Push Ups /\ \//\//\ /\" primary={true} onClick={this.handleSubmit} ><Link to="/PushUps"/></RaisedButton>
 
             </Card> 
               </MuiThemeProvider>

@@ -50,7 +50,7 @@ class LogUserData extends React.Component {
             <Card>
               <CardHeader
                 title={this.props.name}
-                subtitle={this.props.userData.toFixed(6) + " Miles Run "}
+                subtitle={this.props.userData + " Miles Run "}
                 avatar={this.props.pic}
                 style={{marginRight: '1px'}}
               />     
@@ -59,9 +59,9 @@ class LogUserData extends React.Component {
           </MuiThemeProvider>
 
           <h1 style={{color: 'white'}}>Total miles run</h1>
-          <p style={{color: 'red', fontSize: 40}}>{(this.props.userData).toFixed(6)} <span style={{color: 'white', fontSize: 40}}>Miles</span></p>
+          <p style={{color: 'red', fontSize: 40}}>{(this.props.userData)} <span style={{color: 'white', fontSize: 40}}>Miles</span></p>
           <h1 style={{color: 'white'}}>Total calories burnt</h1>
-          <p style={{color: 'red', fontSize: 40}}>{(this.props.userData*100).toFixed(4)} <span style={{color: 'white', fontSize: 40}}>Calories</span></p>
+          <p style={{color: 'red', fontSize: 40}}>{(this.props.userData*100)} <span style={{color: 'white', fontSize: 40}}>Calories</span></p>
         </ul>
       </div>
     )

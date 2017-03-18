@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
-import { Router, Route, Link, hashHistory } from 'react-router'
+import { Router, Route, hashHistory } from 'react-router'
 import PushUps from './PushUps.js'
 
 ReactDOM.render(

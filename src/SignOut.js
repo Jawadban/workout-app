@@ -34,7 +34,7 @@ class SignOut extends React.Component {
     return (
       <div style={{float: 'right', marginRight: '56px', marginTop: '25px'}}>  
         <MuiThemeProvider>
-          <RaisedButton label="Sign Out" primary={true} style={true} onClick={this.handleSignOut}/>
+          <RaisedButton label="Sign Out" primary={true} onClick={this.handleSignOut}/>
         </MuiThemeProvider>
       </div>
     )
