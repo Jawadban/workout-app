@@ -67,6 +67,7 @@ class App extends React.Component {
     })
     console.log(this.state.timeStamp)
 
+    // Calling getGeoLocation function to get user location coordinates in the timeinterval
     if(this.state.intervalId) {
       clearInterval(this.state.intervalId);
       this.setState({
