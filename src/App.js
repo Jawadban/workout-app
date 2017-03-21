@@ -22,9 +22,11 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
 
-
+// coord keeps the user location coordinates from the getUserLocation function
 export var coord = [];
 
+// Google Firebase initialized to use from FireBaseAutConfig 
+// file where the Firebase coniguration lives
 firebase.initializeApp(config);
 
 class App extends React.Component {
