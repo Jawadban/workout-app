@@ -88,8 +88,8 @@ class App extends React.Component {
     // Time Stamping for database 'coord' insertion purposes
     var timeStampForThisRunningInstance = this.state.timeStamp
 
-    // This setInterval is for updating state 'coords' and to update firebase database with 'coord' 
-    // Which are time stamped.
+    // This setInterval is for updating state 'coords' 
+    // and to update firebase database with 'coord' which are time stamped.
     if(this.state.timerId) {
       clearInterval(this.state.timerId);
       this.setState({
