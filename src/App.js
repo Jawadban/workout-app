@@ -229,6 +229,7 @@ class App extends React.Component {
 // ref.set({username: 'Bangash'});
   }
 
+  // clearing the setInterval Id's so that we dont have douplication of tasks being performed
   compnoentWillMount(){
     clearInterval(this.timerId);
     clearInterval(this.dbtimerId);
