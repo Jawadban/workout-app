@@ -54,7 +54,8 @@ class App extends React.Component {
     })
   }
 
-  // When user clicks start running handle submit is called to initiate the timer
+  // When user clicks start running handle submit is called to initiate the timeInterval
+  // that starts taking user coords and calculating distance between last coordinates
   handleSubmit (event) {
     const thisInst = this;
 
