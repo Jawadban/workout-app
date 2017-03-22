@@ -237,6 +237,8 @@ class App extends React.Component {
 
   render () {    
     // const condition = this.state.coords ? this.state.coords[this.state.coords.length -1] : 'false';
+    
+    // checking if user is looged in.
     const showNameIfLoggedin = this.state.user ? this.state.user: false;
     // console.log(this.state.user, 'THIS IS USER')
 
