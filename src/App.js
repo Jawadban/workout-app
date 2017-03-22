@@ -126,7 +126,8 @@ class App extends React.Component {
     clearInterval(this.state.timerId);
   }
 
-
+  // this function will be called to update state coordPosNow which is used to 
+  // update the rendered componenets with user location etc.
   tick() {
     this.setState({
       coordPosNow: coord,
