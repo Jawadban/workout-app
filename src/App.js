@@ -140,7 +140,7 @@ class App extends React.Component {
     });
   }
 
-
+  // here we are getting the user coord from firebase database
   getUserInfoDetails () {
     console.log('<<<<<<<<<<<<<<<<<<<')
     const thisVal = this;
