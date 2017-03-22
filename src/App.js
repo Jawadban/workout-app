@@ -134,7 +134,7 @@ class App extends React.Component {
     })
   }
 
-
+  // here we are pushing the user coords to firebase Database.
   writeUserInfoDetails (coordArra) {
     firebase.database().ref('users/' + this.state.user.uid + '/userDetails').set({
       coord: coord
