@@ -54,7 +54,7 @@ class App extends React.Component {
     })
   }
 
-
+  // When user clicks start running handle submit is called to initiate the timer
   handleSubmit (event) {
     const thisInst = this;
 
