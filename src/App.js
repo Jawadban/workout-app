@@ -64,7 +64,7 @@ class App extends React.Component {
     var timeStamp = new Date()
     // Math.floor(Date.now() / 1000)
     this.setState({
-      timeStamp: timeStamp,
+      timeStamp: timeStamp
     })
     console.log(this.state.timeStamp)
 
