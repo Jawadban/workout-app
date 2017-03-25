@@ -26,6 +26,8 @@ class LogIn extends React.Component {
     });
   }
 
+  // This is the triggered function from the login submit
+  // It uses firebase authentication to condirm a user
   handleSubmit(event) {
     // alert('A name was submitted: ' + this.state.value);
     const val = this

@@ -265,6 +265,9 @@ class App extends React.Component {
 
             </Card> 
               </MuiThemeProvider>
+              <ul role="nav">
+                <li><Link to="/PushUps">PushUps</Link></li>
+              </ul>
             </div> : false
           }
         </ul>
