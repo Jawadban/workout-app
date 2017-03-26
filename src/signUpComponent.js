@@ -183,14 +183,4 @@ class SignUp extends React.Component {
 }
 
 export default SignUp;
-          // <button onClick={this.facebookLoginHandle} style={{float: 'left'}} >Login With Facebook</button>
-          // <input type="submit" value="SignUp" />
-
-          // <label>
-          //   Name:
-          //   <input type="text" name='userName' value={this.state.userName} onChange={this.handleChange} />
-          //   Email:
-          //   <input type="email" name='email' value={this.state.email} onChange={this.handleChange} />
-          //   Password:
-          //   <input type="password" name='password' value={this.state.password} onChange={this.handleChange} />
-          // </label>
+          
