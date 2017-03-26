@@ -43,4 +43,3 @@ class SignOut extends React.Component {
 }
 
 export default SignOut;
-				// <h1 style={{ marginRight: '35px'}}>Sign Out?</h1>
