@@ -4,7 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 
 
-
+// This component signs out user from firebase 
 class SignOut extends React.Component {
   constructor (props) {
     super (props)

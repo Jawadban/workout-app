@@ -297,13 +297,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-
-              // <button className='buttn' onClick={this.handleSubmit}>Start Running</button>
-
-          // { (this.state.user) ? 
-          //   <StartRunning /> : false
-          // }
-                //<ul role="nav">
-               //   <li><Link to="/PushUps">PushUps</Link></li>
-                //</ul>
