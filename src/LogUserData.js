@@ -70,10 +70,7 @@ class LogUserData extends React.Component {
 }
 
 export default LogUserData;
-          // <h1 style={{color: 'white'}}><span style={{color: 'white'}}>{this.props.name}</span> </h1>
 
-            // <Chip style={{margin: '4'}} 
-            // >
             //   <Avatar src={this.props.pic} style={{width: '60px', height: '60px'}} />
              // {this.props.name} 
             // </Chip>
