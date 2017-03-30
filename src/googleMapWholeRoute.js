@@ -3,7 +3,6 @@ import Paper from 'material-ui/Paper';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
-//const React = require('react')
 //const coords = '37.7837403,-122.40905780000001';
 class GoogleWholeRoute extends React.Component {
 	constructor (props) {
