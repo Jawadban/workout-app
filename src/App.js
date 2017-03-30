@@ -160,7 +160,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.timerId = setInterval(() => this.tick(), 3000)
+    this.state.timerId = setInterval(() => this.tick(), 3000)
 
     // this.writeUserData(this.state.coordPosNow)
 
@@ -236,6 +236,18 @@ class App extends React.Component {
     clearInterval(this.dbtimerId);
     clearInterval(this.getDbtimerId);
   }
+
+  componentWillUnmount() {
+    console.log('&*&*&*&*&*&*')
+    clearInterval(this.state.timerId);
+    clearInterval(this.state.intervalId);
+    clearInterval(this.state.dbtimerId);
+    this.setState({
+        intervalId: null,
+        timerId: null
+      });
+  }
+
 
   render () {    
     // const condition = this.state.coords ? this.state.coords[this.state.coords.length -1] : 'false';
