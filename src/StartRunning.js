@@ -2,6 +2,7 @@ import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+// when user clicks the button the setinterval starts running.
 export default class StartRunning extends React.Component {
 
 	render () {
