@@ -3,7 +3,7 @@ import * as firebase from 'firebase';
 import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
-
+import FB from'fb';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 
@@ -37,9 +37,20 @@ class SignUp extends React.Component {
   //     });
   // }
 
+  // componentDidMount() {
+  //   //this is to check if someone else is not logged into facebook using same details
+  //   FB.getLoginStatus(function(response) {
+  //     console.log(response)
+  //     statusChangeCallback(response);
+  //   });
+  // }
+
   facebookLoginHandle(event) {
+
+    console.log('Button click <<<<<<<<<')
     var provider = new firebase.auth.FacebookAuthProvider();
     firebase.auth().signInWithRedirect(provider).then(function(result) {
+      alert('bananas')
       // This gives you a Facebook Access Token. You can use it to access the Facebook API.
       var token = result.credential.accessToken;
       // The signed-in user info.
@@ -53,6 +64,7 @@ class SignUp extends React.Component {
       var email = error.email;
       // The firebase.auth.AuthCredential type that was used.
       var credential = error.credential;
+      console.error(error)
       // ...
     });
 
@@ -183,4 +195,3 @@ class SignUp extends React.Component {
 }
 
 export default SignUp;
-          

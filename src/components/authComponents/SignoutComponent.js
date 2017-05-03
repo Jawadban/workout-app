@@ -4,7 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 
 
-// This component signs out user from firebase 
+
 class SignOut extends React.Component {
   constructor (props) {
     super (props)
@@ -43,3 +43,4 @@ class SignOut extends React.Component {
 }
 
 export default SignOut;
+				// <h1 style={{ marginRight: '35px'}}>Sign Out?</h1>

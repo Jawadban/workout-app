@@ -50,7 +50,7 @@ class LogUserData extends React.Component {
             <Card>
               <CardHeader
                 title={this.props.name}
-                subtitle={this.props.userData + " Miles Run "}
+                subtitle={this.props.userData.toFixed(4) + " Miles Run "}
                 avatar={this.props.pic}
                 style={{marginRight: '1px'}}
               />     
@@ -59,9 +59,9 @@ class LogUserData extends React.Component {
           </MuiThemeProvider>
 
           <h1 style={{color: 'white'}}>Total miles run</h1>
-          <p style={{color: 'red', fontSize: 40}}>{(this.props.userData)} <span style={{color: 'white', fontSize: 40}}>Miles</span></p>
+          <p style={{color: 'red', fontSize: 40}}>{(this.props.userData.toFixed(4))} <span style={{color: 'white', fontSize: 40}}>Miles</span></p>
           <h1 style={{color: 'white'}}>Total calories burnt</h1>
-          <p style={{color: 'red', fontSize: 40}}>{(this.props.userData*100)} <span style={{color: 'white', fontSize: 40}}>Calories</span></p>
+          <p style={{color: 'red', fontSize: 40}}>{(this.props.userData*100).toFixed(2)} <span style={{color: 'white', fontSize: 40}}>Calories</span></p>
         </ul>
       </div>
     )
@@ -70,11 +70,3 @@ class LogUserData extends React.Component {
 }
 
 export default LogUserData;
-          // <img src={this.props.pic} style={{ border: '25px'}}/>
-          // <h1 style={{color: 'white'}}><span style={{color: 'white'}}>{this.props.name}</span> </h1>
-
-            // <Chip style={{margin: '4'}} 
-            // >
-            //   <Avatar src={this.props.pic} style={{width: '60px', height: '60px'}} />
-             // {this.props.name} 
-            // </Chip>

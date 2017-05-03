@@ -1,22 +1,21 @@
-import React, { Component } from 'react';
-// import logo from './logo.svg';
+import React, { Component } from 'react'; 
 import './App.css';
-import GoogleMapStatic from './googleStaticMap.js';
-import LogUserData from './LogUserData.js'
+import GoogleMapStatic from './googleMapsComponents/CurrentLocationMap.js';
+import LogUserData from './renderComponents/LogUserData.js'
 import { Router, Route, Link, hashHistory } from 'react-router'
-import GoogleWholeRoute from './googleMapWholeRoute.js'
+import GoogleWholeRoute from './googleMapsComponents/WholeRoute.js'
 //import { withGoogleMap } from "react-google-maps";
 //import Map from 'google-maps-react'
 import * as firebase from 'firebase';
 // import firebaseui from ('firebaseui');
-import SignUp from './signUpComponent.js'
-import LogIn from './loginComponent.js'
-import SignOut from './SignOut.js'
-import {getGeoLocation,  totalDistanceTravelled} from './GetUserCoords.js'
+import SignUp from './authComponents/SignupComponent.js'
+import LogIn from './authComponents/LoginComponent.js'
+import SignOut from './authComponents/SignoutComponent.js'
+import {getGeoLocation,  totalDistanceTravelled} from './googleMapsComponents/getUserCoordsFunctions.js'
 import FB from 'fb';
-import {config} from './FireBaseAutConfig.js'
-import AllUserData from './RenderUserData.js'
-import StartRunning from './StartRunning.js'
+import {config} from './authComponents/firebaseAuthConfig.js'
+import AllUserData from './renderComponents/UserProflieInfoCard.js'
+import StartRunning from './exerciseComponents/RunningComponent.js'
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
@@ -43,6 +42,7 @@ class App extends React.Component {
       intervalId: null,
       timerId: null,
       timeStamp: new Date(),
+      totalDistanceTravelled: 0,
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -78,7 +78,10 @@ class App extends React.Component {
       this.setState({
         intervalId: setInterval(
           function () {
-            getGeoLocation ()
+            getGeoLocation (),
+            thisInst.setState({
+              totalDistanceTravelled: totalDistanceTravelled
+            })
             console.log(coord, 'These are the user coords')
             //console.log(thisInst.state.coords, 'SSSETTTT STTATE COORDS')
           }
@@ -160,7 +163,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.state.timerId = setInterval(() => this.tick(), 3000)
+    this.timerId = setInterval(() => this.tick(), 3000)
 
     // this.writeUserData(this.state.coordPosNow)
 
@@ -237,18 +240,6 @@ class App extends React.Component {
     clearInterval(this.getDbtimerId);
   }
 
-  componentWillUnmount() {
-    console.log('&*&*&*&*&*&*')
-    clearInterval(this.state.timerId);
-    clearInterval(this.state.intervalId);
-    clearInterval(this.state.dbtimerId);
-    this.setState({
-        intervalId: null,
-        timerId: null
-      });
-  }
-
-
   render () {    
     // const condition = this.state.coords ? this.state.coords[this.state.coords.length -1] : 'false';
     
@@ -269,28 +260,25 @@ class App extends React.Component {
             <Card>
               <CardHeader
                 title={showNameIfLoggedin.displayName}
-                subtitle={totalDistanceTravelled + " Miles Run "}
+                subtitle={this.state.totalDistanceTravelled.toFixed(4) + " Miles Run "}
                 avatar={showNameIfLoggedin.photoURL}
               />     
                 <RaisedButton label="Start Running" primary={true} onClick={this.handleSubmit}></RaisedButton>
-                <RaisedButton label="Push Ups /\ \//\//\ /\" primary={true} onClick={this.handleSubmit} ><Link to="/PushUps"/></RaisedButton>
+                <Link to="/PushUps"><RaisedButton label="Push Ups /\ \//\//\  /" primary={true} ></RaisedButton></Link>
 
             </Card> 
               </MuiThemeProvider>
-              <ul role="nav">
-                <li><Link to="/PushUps">PushUps</Link></li>
-              </ul>
             </div> : false
           }
         </ul>
         {
           this.state.coords[0] && this.state.user ?
-            <AllUserData coords={this.state.coords} userData={totalDistanceTravelled} 
+            <AllUserData coords={this.state.coords} userData={this.state.totalDistanceTravelled} 
             name={showNameIfLoggedin.displayName} pic={showNameIfLoggedin.photoURL}/> : false
         }
         {
           this.state.coords.length > 0 && this.state.user ?
-            <AllUserData coords={this.state.coords} userData={totalDistanceTravelled}/> : false
+            <AllUserData coords={this.state.coords} userData={this.state.totalDistanceTravelled}/> : false
         }
         { 
           this.state.coords.length > 0 && this.state.user ?
@@ -298,7 +286,7 @@ class App extends React.Component {
             <ul>
               <h1 style={{color: 'white'}}><span style={{color: 'red'}}>Dani</span> in <span style={{color: 'pink'}}>Tokoyo</span></h1>
             </ul>
-            <AllUserData coords={[{Latitude :35.604561, Longitude: 139.7901791}]} userData={totalDistanceTravelled}/>
+            <AllUserData coords={[{Latitude :35.604561, Longitude: 139.7901791}]} userData={this.state.totalDistanceTravelled}/>
           </div>
           : null
         }

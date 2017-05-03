@@ -1,6 +1,6 @@
 import React from 'react';
-import GoogleWholeRoute from './googleMapWholeRoute.js'
-import GoogleMapStatic from './googleStaticMap.js';
+import GoogleWholeRoute from '../googleMapsComponents/WholeRoute.js'
+import GoogleMapStatic from '../googleMapsComponents/CurrentLocationMap.js';
 import LogUserData from './LogUserData.js'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 

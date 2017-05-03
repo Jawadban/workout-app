@@ -3,6 +3,7 @@ import Paper from 'material-ui/Paper';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
+//const React = require('react')
 //const coords = '37.7837403,-122.40905780000001';
 class GoogleWholeRoute extends React.Component {
 	constructor (props) {
@@ -49,5 +50,3 @@ class GoogleWholeRoute extends React.Component {
 }
 
 export default GoogleWholeRoute;
-
-// style={{ boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 #00bcd4'}}
